@@ -50,7 +50,8 @@ public class RecordMove : MonoBehaviour
         }
         else if (timer > waitTime & testing == true)
         {
-            this.gameObject.GetComponent<RecordData>().WriteData("HeadsetPose" + testNum + ".csv", allCamPosCsv);
+            System.DateTime myTime = System.DateTime.Now;
+            this.gameObject.GetComponent<RecordData>().WriteData("HeadsetPose" + testNum + myTime.TimeOfDay  + ".csv", allCamPosCsv);
             allCamPosCsv = " ";
 
             testing = false;
