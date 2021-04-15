@@ -1,7 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-
-using System.Globalization;
 using UnityEngine;
 
 public class RecordMove : MonoBehaviour
@@ -21,6 +19,8 @@ public class RecordMove : MonoBehaviour
     private string camRotZ;
 
     private string allCamPosCsv;
+
+    public long myTime;
 
     private bool testing = false;
     private float timer = 0.0f;
@@ -51,11 +51,9 @@ public class RecordMove : MonoBehaviour
             textObj.GetComponent<TextMesh>().text = (timer.ToString());
         }
         else if (timer > waitTime & testing == true)
-           
         {
-            DateTime today = DateTime.Now;
-            //System.DateTime myTime = System.DateTime.Now;
-            this.gameObject.GetComponent<RecordData>().WriteData("HeadsetPose" + testNum + today + ".csv", allCamPosCsv);
+            
+            this.gameObject.GetComponent<RecordData>().WriteData("HeadsetPose" + testNum +"(" + myTime  + ")" + ".csv" , allCamPosCsv);
             allCamPosCsv = " ";
 
             testing = false;
@@ -71,7 +69,7 @@ public class RecordMove : MonoBehaviour
         //Debug.Log("button clicked");
         testNum += 1;
         testing = true;
-
+        myTime = System.DateTime.Now.Ticks;
     }
 
 }
