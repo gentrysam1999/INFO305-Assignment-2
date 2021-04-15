@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+
+using System.Globalization;
 using UnityEngine;
 
 public class RecordMove : MonoBehaviour
@@ -49,9 +51,11 @@ public class RecordMove : MonoBehaviour
             textObj.GetComponent<TextMesh>().text = (timer.ToString());
         }
         else if (timer > waitTime & testing == true)
+           
         {
-            System.DateTime myTime = System.DateTime.Now;
-            this.gameObject.GetComponent<RecordData>().WriteData("HeadsetPose" + testNum + myTime.TimeOfDay  + ".csv", allCamPosCsv);
+            DateTime today = DateTime.Now;
+            //System.DateTime myTime = System.DateTime.Now;
+            this.gameObject.GetComponent<RecordData>().WriteData("HeadsetPose" + testNum + today + ".csv", allCamPosCsv);
             allCamPosCsv = " ";
 
             testing = false;
