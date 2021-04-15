@@ -20,6 +20,8 @@ public class RecordMove : MonoBehaviour
 
     private string allCamPosCsv;
 
+    public long myTime;
+
     private bool testing = false;
     private float timer = 0.0f;
     private float waitTime = 5.0f;
@@ -50,8 +52,8 @@ public class RecordMove : MonoBehaviour
         }
         else if (timer > waitTime & testing == true)
         {
-            System.DateTime myTime = System.DateTime.Now;
-            this.gameObject.GetComponent<RecordData>().WriteData("HeadsetPose" + testNum + myTime.TimeOfDay  + ".csv", allCamPosCsv);
+            
+            this.gameObject.GetComponent<RecordData>().WriteData("HeadsetPose" + testNum +"(" + myTime  + ")" + ".csv" , allCamPosCsv);
             allCamPosCsv = " ";
 
             testing = false;
@@ -67,7 +69,10 @@ public class RecordMove : MonoBehaviour
         //Debug.Log("button clicked");
         testNum += 1;
         testing = true;
-
+        myTime = System.DateTime.Now.Ticks;
+        //DateTime centuryBegin = new DateTime(2001, 1, 1);
+        //DateTime currentDate = DateTime.Now;
+        //long ElapsedTicks = currentDate.Ticks - centuryBegin.Ticks;
     }
 
 }
