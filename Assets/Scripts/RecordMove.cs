@@ -70,9 +70,6 @@ public class RecordMove : MonoBehaviour
         testNum += 1;
         testing = true;
         myTime = System.DateTime.Now.Ticks;
-        //DateTime centuryBegin = new DateTime(2001, 1, 1);
-        //DateTime currentDate = DateTime.Now;
-        //long ElapsedTicks = currentDate.Ticks - centuryBegin.Ticks;
     }
 
 }
