@@ -1,0 +1,65 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using System;
+using System.IO;
+using UnityEngine;
+
+public class Player : MonoBehaviour
+{
+    public TextAsset testFile;
+    public string fileName = "walk test 1.csv";
+    public List<string> testValues = new List<string>();
+
+    public bool read = false;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        this.ReadValues();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    public void ReadValues()
+    {
+        try
+        {
+            // Create an instance of StreamReader to read from a file.
+            // The using statement also closes the StreamReader.
+            using (StreamReader sr = new StreamReader(Application.dataPath + "/" + fileName))
+            {
+                string line;
+                read = true;
+                
+                // Read and display lines from the file until the end of
+                // the file is reached.
+                while ((line = sr.ReadLine()) != null) //not reading each line of code
+                {
+                    //Debug.Log(line);
+                    string[] subs = line.Split(',');
+                    foreach (var sub in subs)
+                    {
+                        
+                        float value = float.Parse(sub);
+                        Debug.Log(value);
+                        
+                    }
+
+                    testValues.Add(line);
+                    //Console.WriteLine(line);
+
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            // Let the user know what went wrong.
+            Console.WriteLine("The file could not be read:");
+            Console.WriteLine(e.Message);
+        }
+    }
+}
