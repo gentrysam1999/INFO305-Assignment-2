@@ -8,8 +8,9 @@ public class RecordMove : MonoBehaviour
 
     private float testNum = 0;
 
-    private Vector3 camAngle;
-    
+    //private Vector3 camAngle;
+    private Quaternion camAngle;
+
 
     private string camPosX;
     private string camPosY;
@@ -24,7 +25,7 @@ public class RecordMove : MonoBehaviour
 
     private bool testing = false;
     private float timer = 0.0f;
-    private float waitTime = 5.0f;
+    private float waitTime = 60.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,7 +43,8 @@ public class RecordMove : MonoBehaviour
             camPosX = this.gameObject.transform.position.x.ToString();
             camPosY = this.gameObject.transform.position.y.ToString();
             camPosZ = this.gameObject.transform.position.z.ToString();
-            camAngle = this.gameObject.transform.rotation.eulerAngles;
+            //camAngle = this.gameObject.transform.rotation.eulerAngles;
+            camAngle = this.gameObject.transform.rotation;
             camRotX = camAngle.x.ToString();
             camRotY = camAngle.y.ToString();
             camRotZ = camAngle.z.ToString();
