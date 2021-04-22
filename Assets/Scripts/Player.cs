@@ -7,25 +7,50 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public TextAsset testFile;
-    public string fileName = "walk test 1 copy.csv";
+    public string fileName = "walk test 1.csv";
     //public List<string> testValues = new List<string>();
 
     public bool read = false;
 
     public List<float[]> dataArrays = new List<float[]>();
 
-    //private float time, xPos, yPos, zPos, xRot, yRot, zRot;
+    public GameObject lineObj;
+    private float timer = 0.0f;
+    private int playbackCount = 0;
 
+    void Awake()
+    {
+        this.ReadValues();
+    }
     // Start is called before the first frame update
     void Start()
     {
-        this.ReadValues();
+        //Renders a line that shows the path taken
+        LineRenderer lineRend = lineObj.GetComponent<LineRenderer>();
+        lineRend.positionCount = dataArrays.Count;
+        for (int i = 0; i < dataArrays.Count; i++){
+            float[] x = dataArrays[i];
+            lineRend.SetPosition(i, new Vector3(x[1], x[2], x[3]));
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        // game object will move along the path using the time intervals    
+        // this is just initial stuff, need to add the checker for the difference 
+        // between values to help ignore if the headset gets reset to 0
+        Debug.Log(timer);
+        float[] x = dataArrays[playbackCount];
+        if(timer > x[0] && playbackCount < dataArrays.Count){
+            this.gameObject.transform.position = new Vector3(x[1], x[2], x[3]);
+            if(playbackCount < dataArrays.Count-1){
+                playbackCount += 1;
+            }
+            timer+=Time.deltaTime;
+        }else{
+            timer+=Time.deltaTime;
+        }
     }
 
     public void ReadValues()
@@ -41,36 +66,23 @@ public class Player : MonoBehaviour
 
                 // Read and display lines from the file until the end of
                 // the file is reached.
-                while ((line = sr.ReadLine()) != null) //not reading each line of code
+                while ((line = sr.ReadLine()) != null)
                 {
-
-                    //Debug.Log(line);
                     string[] subs = line.Split(',');
                     float[] tempArray = new float[7];
                     int count = 0;
                     foreach (var sub in subs)
                     {
-                        if (sub.Length > 1)
+                        if (sub.Length > 0) //checks that the substring exists
                         {
                             float value = float.Parse(sub);
-                            // Debug.Log(value);
-                            
-
                             tempArray[count] = value;
-                            //Debug.Log(tempArray[1]);
-                            count +=1;
-                            
-                        }                       
+                            count += 1;
+                        }
                     }
                     dataArrays.Add(tempArray);
-                    //Debug.Log(dataArrays.Count);
-                    float[] x = dataArrays[dataArrays.Count-1];
-                    Debug.Log(x[0] + " " + x[1] + " " + x[2] + " " + x[3] + " " + x[4] + " " + x[5] + " " + x[6]);
-
-                   // Debug.Log("i" + dataArrays);
-                    //testValues.Add(line);
-                    //Console.WriteLine(line);
-
+                    float[] x = dataArrays[dataArrays.Count - 1];
+                    //Debug.Log(x[0] + " " + x[1] + " " + x[2] + " " + x[3] + " " + x[4] + " " + x[5] + " " + x[6]);
                 }
             }
         }
