@@ -7,7 +7,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public TextAsset testFile;
-    public string fileName = "walk test 1.csv";
+    public string fileName = "walk test 1 copy.csv";
     //public List<string> testValues = new List<string>();
 
     public bool read = false;
@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(dataArrays.Count);
+        
     }
 
     public void ReadValues()
@@ -46,35 +46,34 @@ public class Player : MonoBehaviour
 
                     //Debug.Log(line);
                     string[] subs = line.Split(',');
-                    float[] tempArray = new float[6];
+                    float[] tempArray = new float[7];
                     int count = 0;
                     foreach (var sub in subs)
                     {
                         if (sub.Length > 1)
                         {
                             float value = float.Parse(sub);
-                           // Debug.Log(value);
+                            // Debug.Log(value);
+                            
+
                             tempArray[count] = value;
-                            count+=1;
+                            Debug.Log(tempArray[1]);
+                            count +=1;
                             
                         }
                         else{
-                            Debug.Log("yes");
                             dataArrays.Add(tempArray);
-                            Debug.Log(dataArrays.Count);
-                            //Debug.Log(dataArrays[dataArrays.Count-1]);
-                            //float[] x = dataArrays[dataArrays.Count-1];
-                            //Debug.Log(x[0]);
+
                         }
 
                         //Debug.Log(sub);
-
+                        
                     }
-                    
-                    
+
+                   // Debug.Log("i" + dataArrays);
                     //testValues.Add(line);
                     //Console.WriteLine(line);
-                    
+
                 }
             }
         }
