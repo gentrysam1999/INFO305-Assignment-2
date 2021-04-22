@@ -48,7 +48,7 @@ public class RecordMove : MonoBehaviour
             camRotX = camAngle.x.ToString();
             camRotY = camAngle.y.ToString();
             camRotZ = camAngle.z.ToString();
-            allCamPosCsv += (timer.ToString() + "," + camPosX + "," + camPosY + "," + camPosZ + "," + camRotX + "," + camRotY + "," + camRotZ + ",\n");
+            allCamPosCsv += (timer.ToString() + "," + camPosX + "," + camPosY + "," + camPosZ + "," + camRotX + "," + camRotY + "," + camRotZ + "\n"); //if this doesn't work, put add coma before \n
 
             textObj.GetComponent<TextMesh>().text = (timer.ToString());
         }

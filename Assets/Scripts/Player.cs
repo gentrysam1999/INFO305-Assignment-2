@@ -7,7 +7,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public TextAsset testFile;
-    public string fileName = "walk test 1.csv";
+    public string fileName = "walk test 1 copy.csv";
     public List<string> testValues = new List<string>();
 
     public bool read = false;
@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void ReadValues()
@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
             {
                 string line;
                 read = true;
-                
+
                 // Read and display lines from the file until the end of
                 // the file is reached.
                 while ((line = sr.ReadLine()) != null) //not reading each line of code
@@ -43,10 +43,14 @@ public class Player : MonoBehaviour
                     string[] subs = line.Split(',');
                     foreach (var sub in subs)
                     {
-                        
-                        float value = float.Parse(sub);
-                        Debug.Log(value);
-                        
+                        if (sub.Length > 1)
+                        {
+                            float value = float.Parse(sub);
+                            Debug.Log(value);
+                        }
+
+                        //Debug.Log(sub);
+
                     }
 
                     testValues.Add(line);
