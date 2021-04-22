@@ -57,18 +57,15 @@ public class Player : MonoBehaviour
                             
 
                             tempArray[count] = value;
-                            Debug.Log(tempArray[1]);
+                            //Debug.Log(tempArray[1]);
                             count +=1;
                             
-                        }
-                        else{
-                            dataArrays.Add(tempArray);
-
-                        }
-
-                        //Debug.Log(sub);
-                        
+                        }                       
                     }
+                    dataArrays.Add(tempArray);
+                    //Debug.Log(dataArrays.Count);
+                    float[] x = dataArrays[dataArrays.Count-1];
+                    Debug.Log(x[0] + " " + x[1] + " " + x[2] + " " + x[3] + " " + x[4] + " " + x[5] + " " + x[6]);
 
                    // Debug.Log("i" + dataArrays);
                     //testValues.Add(line);
