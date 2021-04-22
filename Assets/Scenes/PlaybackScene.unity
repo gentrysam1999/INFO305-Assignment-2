@@ -653,28 +653,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2106044078 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9008522573116419312, guid: c1c9d1e47d6cb49fbb6266d34c1d837a,
-    type: 3}
-  m_PrefabInstance: {fileID: 9008522574635106910}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2106044083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2106044078}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8041aa93a56a44f3a914b0912fa3902, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  testFile: {fileID: 0}
-  fileName: walk test 1.csv
-  read: 0
-  lineObj: {fileID: 1726506905}
 --- !u!1001 &9008522574635106910
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -682,6 +660,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2106044083, guid: c1c9d1e47d6cb49fbb6266d34c1d837a, type: 3}
+      propertyPath: lineObj
+      value: 
+      objectReference: {fileID: 1726506905}
     - target: {fileID: 9008522573116419308, guid: c1c9d1e47d6cb49fbb6266d34c1d837a,
         type: 3}
       propertyPath: m_RootOrder
