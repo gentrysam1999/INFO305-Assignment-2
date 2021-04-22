@@ -8,9 +8,13 @@ public class Player : MonoBehaviour
 {
     public TextAsset testFile;
     public string fileName = "walk test 1 copy.csv";
-    public List<string> testValues = new List<string>();
+    //public List<string> testValues = new List<string>();
 
     public bool read = false;
+
+    public List<float[]> dataArrays = new List<float[]>();
+
+    //private float time, xPos, yPos, zPos, xRot, yRot, zRot;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +25,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
     public void ReadValues()
@@ -33,29 +37,37 @@ public class Player : MonoBehaviour
             using (StreamReader sr = new StreamReader(Application.dataPath + "/" + fileName))
             {
                 string line;
-                read = true;
+                //read = true;
 
                 // Read and display lines from the file until the end of
                 // the file is reached.
                 while ((line = sr.ReadLine()) != null) //not reading each line of code
                 {
+
                     //Debug.Log(line);
                     string[] subs = line.Split(',');
+                    float[] tempArray = new float[7];
+                    int count = 0;
                     foreach (var sub in subs)
                     {
                         if (sub.Length > 1)
                         {
                             float value = float.Parse(sub);
                             Debug.Log(value);
+                            tempArray[count] = value;
+                            count+=1;
+                        }else{
+                            dataArrays.Add(tempArray);
                         }
 
                         //Debug.Log(sub);
 
                     }
-
-                    testValues.Add(line);
+                    
+                    
+                    //testValues.Add(line);
                     //Console.WriteLine(line);
-
+                    
                 }
             }
         }
