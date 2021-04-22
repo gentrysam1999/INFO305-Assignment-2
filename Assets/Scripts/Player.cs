@@ -53,25 +53,27 @@ public class Player : MonoBehaviour
                         if (sub.Length > 1)
                         {
                             float value = float.Parse(sub);
-                           // Debug.Log(value);
+                            // Debug.Log(value);
+                            
+
                             tempArray[count] = value;
-                            count+=1;
+                            Debug.Log(tempArray[1]);
+                            count +=1;
                             
                         }
                         else{
                             dataArrays.Add(tempArray);
-                            Debug.Log(dataArrays.Count);
 
                         }
 
                         //Debug.Log(sub);
-
+                        
                     }
-                    
-                    
+
+                   // Debug.Log("i" + dataArrays);
                     //testValues.Add(line);
                     //Console.WriteLine(line);
-                    
+
                 }
             }
         }
