@@ -7,7 +7,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public TextAsset testFile;
-    public string fileName = "walk test 1 copy.csv";
+    public string fileName = "walk test 1.csv";
     //public List<string> testValues = new List<string>();
 
     public bool read = false;
@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //Debug.Log(dataArrays.Count);
     }
 
     public void ReadValues()
@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
 
                     //Debug.Log(line);
                     string[] subs = line.Split(',');
-                    float[] tempArray = new float[7];
+                    float[] tempArray = new float[6];
                     int count = 0;
                     foreach (var sub in subs)
                     {
@@ -59,9 +59,12 @@ public class Player : MonoBehaviour
                             
                         }
                         else{
+                            Debug.Log("yes");
                             dataArrays.Add(tempArray);
                             Debug.Log(dataArrays.Count);
-
+                            //Debug.Log(dataArrays[dataArrays.Count-1]);
+                            //float[] x = dataArrays[dataArrays.Count-1];
+                            //Debug.Log(x[0]);
                         }
 
                         //Debug.Log(sub);
