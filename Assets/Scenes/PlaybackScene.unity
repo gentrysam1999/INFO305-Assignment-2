@@ -750,6 +750,11 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2106044083, guid: c1c9d1e47d6cb49fbb6266d34c1d837a, type: 3}
+      propertyPath: marker
+      value: 
+      objectReference: {fileID: 91143823427409167, guid: 8dfd73be0c0c24aef976b3daf7d00d77,
+        type: 3}
+    - target: {fileID: 2106044083, guid: c1c9d1e47d6cb49fbb6266d34c1d837a, type: 3}
       propertyPath: lineObj
       value: 
       objectReference: {fileID: 1726506905}

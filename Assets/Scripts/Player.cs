@@ -8,42 +8,29 @@ public class Player : MonoBehaviour
 {
     //private string fileName = "HeadsetPose1(637547047324757359).csv";
     //private string fileName = "HeadsetPose2(637547047995676525).csv";
-    private string fileName = "HeadsetPose3(637547048653109104).csv";
-    //private string fileName = "HeadsetPose4(637547049295046052).csv";
+    //private string fileName = "HeadsetPose3(637547048653109104).csv";
+    private string fileName = "HeadsetPose4(637547049295046052).csv";
     //private string fileName = "HeadsetPose5(637547049989923940).csv";
+
     public List<float[]> dataArrays = new List<float[]>();
     public GameObject lineObj;
+    public GameObject marker;
     private float timer = 0.0f;
+    private float timeInstantiate = 0.0f;
+    public float instatiateTimeToAdd = 5.0f;
     private int playbackCount = 1;
 
     float xLine, yLine, zLine = 0.0f;
     float xPos, yPos, zPos, xRot, yRot, zRot, wRot = 0.0f;
     void Awake()
     {
-        this.ReadValues();
+        
     }
     // Start is called before the first frame update
     void Start()
     {
-        //Renders a line that shows the path taken
-        LineRenderer lineRend = lineObj.GetComponent<LineRenderer>();
-        lineRend.positionCount = dataArrays.Count;
-        for (int i = 1; i < dataArrays.Count; i++){
-            float[] a = dataArrays[i];
-            float[] b = dataArrays[i-1];
-            float xDisp = a[1] - b[1];
-            float yDisp = a[2] - b[2];
-            float zDisp = a[3] - b[3];
-            float totalDisp = Mathf.Sqrt((xDisp*xDisp) + (yDisp*yDisp) + (zDisp*zDisp));
-            xLine += xDisp; 
-            yLine += yDisp; 
-            zLine += zDisp; 
-            //lineRend.SetPosition(i, new Vector3(a[1], a[2], a[3]));
-            //if (!(xDisp > 10 || yDisp > 10 || zDisp > 10)){
-            if (!(totalDisp > 10)){
-                lineRend.SetPosition(i, new Vector3(xLine, yLine, zLine));
-            }
-        }
+        this.ReadValues();
+        this.RenderLine();
     }
 
     // Update is called once per frame
@@ -53,29 +40,33 @@ public class Player : MonoBehaviour
         // this is just initial stuff, need to add the checker for the difference 
         // between values to help ignore if the headset gets reset to 0
         //Debug.Log(timer);
-        float[] a = dataArrays[playbackCount];
-        float[] b = dataArrays[playbackCount-1];
+        float[] a = dataArrays[playbackCount]; //current
+        float[] b = dataArrays[playbackCount-1]; //previous
 
         if(timer > a[0] && playbackCount < dataArrays.Count-1){
             float xDisp = a[1] - b[1];
             float yDisp = a[2] - b[2];
             float zDisp = a[3] - b[3];
-            float xRotDisp = a[4] - b[4];
-            float yRotDisp = a[5] - b[5];
-            float zRotDisp = a[6] - b[6];
-            float wRotDisp = a[7] - b[7];
+            //float xRotDisp = a[4] - b[4];
+            //float yRotDisp = a[5] - b[5];
+            //float zRotDisp = a[6] - b[6];
+            //float wRotDisp = a[7] - b[7];
             float totalDisp = Mathf.Sqrt((xDisp*xDisp) + (yDisp*yDisp) + (zDisp*zDisp));
             xPos += xDisp; 
             yPos += yDisp; 
             zPos += zDisp;
-            xRot += xRotDisp;
-            yRot += yRotDisp;
-            zRot += zRotDisp;
-            wRot += wRotDisp;
+            //xRot += xRotDisp;
+            //yRot += yRotDisp;
+            //zRot += zRotDisp;
+            //wRot += wRotDisp;
             if (!(totalDisp > 10)){
                 this.gameObject.transform.position = new Vector3(xPos, yPos, zPos);
                 //this.gameObject.transform.rotation = new Quaternion(xRot, yRot, zRot, wRot);
-                this.gameObject.transform.rotation = new Quaternion(b[4], b[5], b[6], b[7]);
+                this.gameObject.transform.rotation = new Quaternion(a[4], a[5], a[6], a[7]);
+                if(timer > timeInstantiate){
+                    Instantiate(marker, this.gameObject.transform.position, this.gameObject.transform.rotation);
+                    timeInstantiate += instatiateTimeToAdd;
+                }
             }
             //this.gameObject.transform.position = new Vector3(b[1], b[2], b[3]);
             //this.gameObject.transform.rotation = new Quaternion(b[4], b[5], b[6], b[7]);
@@ -125,6 +116,29 @@ public class Player : MonoBehaviour
             // Let the user know what went wrong.
             Console.WriteLine("The file could not be read:");
             Console.WriteLine(e.Message);
+        }
+    }
+
+    public void RenderLine()
+    {
+        //Renders a line that shows the path taken
+        LineRenderer lineRend = lineObj.GetComponent<LineRenderer>();
+        lineRend.positionCount = dataArrays.Count;
+        for (int i = 1; i < dataArrays.Count; i++){
+            float[] a = dataArrays[i];
+            float[] b = dataArrays[i-1];
+            float xDisp = a[1] - b[1];
+            float yDisp = a[2] - b[2];
+            float zDisp = a[3] - b[3];
+            float totalDisp = Mathf.Sqrt((xDisp*xDisp) + (yDisp*yDisp) + (zDisp*zDisp));
+            xLine += xDisp; 
+            yLine += yDisp; 
+            zLine += zDisp; 
+            //lineRend.SetPosition(i, new Vector3(a[1], a[2], a[3]));
+            //if (!(xDisp > 10 || yDisp > 10 || zDisp > 10)){
+            if (!(totalDisp > 10)){
+                lineRend.SetPosition(i, new Vector3(xLine, yLine, zLine));
+            }
         }
     }
 }
