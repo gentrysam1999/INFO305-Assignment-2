@@ -73,7 +73,7 @@ public class Player : MonoBehaviour
                             float value = float.Parse(sub);
                             tempArray[count] = value;
                             count += 1;
-                            //Debug.Log(count);
+                            Debug.Log(sub);
                         }
                     }
                     dataArrays.Add(tempArray);
