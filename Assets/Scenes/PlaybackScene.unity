@@ -664,6 +664,14 @@ PrefabInstance:
       propertyPath: lineObj
       value: 
       objectReference: {fileID: 1726506905}
+    - target: {fileID: 2106044083, guid: c1c9d1e47d6cb49fbb6266d34c1d837a, type: 3}
+      propertyPath: fileName
+      value: HeadsetPose1(637547047324757359).csv
+      objectReference: {fileID: 0}
+    - target: {fileID: 2106044083, guid: c1c9d1e47d6cb49fbb6266d34c1d837a, type: 3}
+      propertyPath: testFile
+      value: 
+      objectReference: {fileID: 4900000, guid: 3249c4f1cd9364c37ad0058285a71af9, type: 3}
     - target: {fileID: 9008522573116419308, guid: c1c9d1e47d6cb49fbb6266d34c1d837a,
         type: 3}
       propertyPath: m_RootOrder
