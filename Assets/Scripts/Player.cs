@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private string fileName = "walk test 1.csv";
-    //private string fileName = "HeadsetPose1(637547047324757359).csv";
+    //private string fileName = "walk test 1.csv";
+    private string fileName = "HeadsetPose1(637547047324757359).csv";
     public List<float[]> dataArrays = new List<float[]>();
     public GameObject lineObj;
     private float timer = 0.0f;
@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
         float[] x = dataArrays[playbackCount];
         if(timer > x[0] && playbackCount < dataArrays.Count){
             this.gameObject.transform.position = new Vector3(x[1], x[2], x[3]);
-            //this.gameObject.transform.rotation = new Quarternion(x[4], x[5], x[6], x[7]);
+            this.gameObject.transform.rotation = new Quaternion(x[4], x[5], x[6], x[7]);
             if(playbackCount < dataArrays.Count-1){
                 playbackCount += 1;
             }
@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
                 while ((line = sr.ReadLine()) != null)
                 {
                     string[] subs = line.Split(',');
-                    float[] tempArray = new float[7];
+                    float[] tempArray = new float[8];
                     int count = 0; //count set to 0 at start of line read
                     foreach (var sub in subs)
                     {
