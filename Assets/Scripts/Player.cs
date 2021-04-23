@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.IO;
@@ -14,8 +14,10 @@ public class Player : MonoBehaviour
     public List<float[]> dataArrays = new List<float[]>();
     public GameObject lineObj;
     private float timer = 0.0f;
-    private int playbackCount = 0;
+    private int playbackCount = 1;
 
+    float xLine, yLine, zLine = 0.0f;
+    float xPos, yPos, zPos, xRot, yRot, zRot, wRot = 0.0f;
     void Awake()
     {
         this.ReadValues();
@@ -26,9 +28,21 @@ public class Player : MonoBehaviour
         //Renders a line that shows the path taken
         LineRenderer lineRend = lineObj.GetComponent<LineRenderer>();
         lineRend.positionCount = dataArrays.Count;
-        for (int i = 0; i < dataArrays.Count; i++){
+        for (int i = 1; i < dataArrays.Count; i++){
             float[] a = dataArrays[i];
-            lineRend.SetPosition(i, new Vector3(a[1], a[2], a[3]));
+            float[] b = dataArrays[i-1];
+            float xDisp = a[1] - b[1];
+            float yDisp = a[2] - b[2];
+            float zDisp = a[3] - b[3];
+            float totalDisp = Mathf.Sqrt((xDisp*xDisp) + (yDisp*yDisp) + (zDisp*zDisp));
+            xLine += xDisp; 
+            yLine += yDisp; 
+            zLine += zDisp; 
+            //lineRend.SetPosition(i, new Vector3(a[1], a[2], a[3]));
+            //if (!(xDisp > 10 || yDisp > 10 || zDisp > 10)){
+            if (!(totalDisp > 10)){
+                lineRend.SetPosition(i, new Vector3(xLine, yLine, zLine));
+            }
         }
     }
 
@@ -39,10 +53,32 @@ public class Player : MonoBehaviour
         // this is just initial stuff, need to add the checker for the difference 
         // between values to help ignore if the headset gets reset to 0
         //Debug.Log(timer);
-        float[] x = dataArrays[playbackCount];
-        if(timer > x[0] && playbackCount < dataArrays.Count){
-            this.gameObject.transform.position = new Vector3(x[1], x[2], x[3]);
-            this.gameObject.transform.rotation = new Quaternion(x[4], x[5], x[6], x[7]);
+        float[] a = dataArrays[playbackCount];
+        float[] b = dataArrays[playbackCount-1];
+
+        if(timer > a[0] && playbackCount < dataArrays.Count-1){
+            float xDisp = a[1] - b[1];
+            float yDisp = a[2] - b[2];
+            float zDisp = a[3] - b[3];
+            float xRotDisp = a[4] - b[4];
+            float yRotDisp = a[5] - b[5];
+            float zRotDisp = a[6] - b[6];
+            float wRotDisp = a[7] - b[7];
+            float totalDisp = Mathf.Sqrt((xDisp*xDisp) + (yDisp*yDisp) + (zDisp*zDisp));
+            xPos += xDisp; 
+            yPos += yDisp; 
+            zPos += zDisp;
+            xRot += xRotDisp;
+            yRot += yRotDisp;
+            zRot += zRotDisp;
+            wRot += wRotDisp;
+            if (!(totalDisp > 10)){
+                this.gameObject.transform.position = new Vector3(xPos, yPos, zPos);
+                //this.gameObject.transform.rotation = new Quaternion(xRot, yRot, zRot, wRot);
+                this.gameObject.transform.rotation = new Quaternion(b[4], b[5], b[6], b[7]);
+            }
+            //this.gameObject.transform.position = new Vector3(b[1], b[2], b[3]);
+            //this.gameObject.transform.rotation = new Quaternion(b[4], b[5], b[6], b[7]);
             if(playbackCount < dataArrays.Count-1){
                 playbackCount += 1;
             }
