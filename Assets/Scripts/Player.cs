@@ -6,8 +6,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    //private string fileName = "walk test 1.csv";
-    private string fileName = "HeadsetPose1(637547047324757359).csv";
+    //private string fileName = "HeadsetPose1(637547047324757359).csv";
+    //private string fileName = "HeadsetPose2(637547047995676525).csv";
+    private string fileName = "HeadsetPose3(637547048653109104).csv";
+    //private string fileName = "HeadsetPose4(637547049295046052).csv";
+    //private string fileName = "HeadsetPose5(637547049989923940).csv";
     public List<float[]> dataArrays = new List<float[]>();
     public GameObject lineObj;
     private float timer = 0.0f;
@@ -24,8 +27,8 @@ public class Player : MonoBehaviour
         LineRenderer lineRend = lineObj.GetComponent<LineRenderer>();
         lineRend.positionCount = dataArrays.Count;
         for (int i = 0; i < dataArrays.Count; i++){
-            float[] x = dataArrays[i];
-            lineRend.SetPosition(i, new Vector3(x[1], x[2], x[3]));
+            float[] a = dataArrays[i];
+            lineRend.SetPosition(i, new Vector3(a[1], a[2], a[3]));
         }
     }
 
@@ -73,7 +76,6 @@ public class Player : MonoBehaviour
                             float value = float.Parse(sub);
                             tempArray[count] = value;
                             count += 1;
-                            Debug.Log(sub);
                         }
                     }
                     dataArrays.Add(tempArray);
