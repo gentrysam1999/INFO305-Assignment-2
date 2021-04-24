@@ -52,14 +52,15 @@ public class Player : MonoBehaviour
             //float zRotDisp = a[6] - b[6];
             //float wRotDisp = a[7] - b[7];
             float totalDisp = Mathf.Sqrt((xDisp*xDisp) + (yDisp*yDisp) + (zDisp*zDisp));
-            xPos += xDisp; 
-            yPos += yDisp; 
-            zPos += zDisp;
+            
             //xRot += xRotDisp;
             //yRot += yRotDisp;
             //zRot += zRotDisp;
             //wRot += wRotDisp;
             if (!(totalDisp > 10)){
+                xPos += xDisp; 
+                yPos += yDisp; 
+                zPos += zDisp;
                 this.gameObject.transform.position = new Vector3(xPos, yPos, zPos);
                 //this.gameObject.transform.rotation = new Quaternion(xRot, yRot, zRot, wRot);
                 this.gameObject.transform.rotation = new Quaternion(a[4], a[5], a[6], a[7]);
@@ -131,12 +132,16 @@ public class Player : MonoBehaviour
             float yDisp = a[2] - b[2];
             float zDisp = a[3] - b[3];
             float totalDisp = Mathf.Sqrt((xDisp*xDisp) + (yDisp*yDisp) + (zDisp*zDisp));
-            xLine += xDisp; 
-            yLine += yDisp; 
-            zLine += zDisp; 
+            
             //lineRend.SetPosition(i, new Vector3(a[1], a[2], a[3]));
             //if (!(xDisp > 10 || yDisp > 10 || zDisp > 10)){
             if (!(totalDisp > 10)){
+                xLine += xDisp; 
+                yLine += yDisp; 
+                zLine += zDisp; 
+                lineRend.SetPosition(i, new Vector3(xLine, yLine, zLine));
+            }
+            else{
                 lineRend.SetPosition(i, new Vector3(xLine, yLine, zLine));
             }
         }
