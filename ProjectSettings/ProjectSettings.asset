@@ -596,11 +596,12 @@ PlayerSettings:
   m_MobileRenderingPath: 1
   metroPackageName: Template3D
   metroPackageVersion: 1.0.0.0
-  metroCertificatePath: 
+  metroCertificatePath: C:\Users\gensa844\OneDrive - University of Otago\Documents\Sam
+    Gentry INFO305\Assignment 2\Assets\WSATestCertificate.pfx
   metroCertificatePassword: 
-  metroCertificateSubject: 
-  metroCertificateIssuer: 
-  metroCertificateNotAfter: 0000000000000000
+  metroCertificateSubject: DefaultCompany
+  metroCertificateIssuer: DefaultCompany
+  metroCertificateNotAfter: 001ae1289954d801
   metroApplicationDescription: Template_3D
   wsaImages: {}
   metroTileShortName: 
