@@ -9,8 +9,9 @@ public class Player : MonoBehaviour
     //private string fileName = "HeadsetPose1(637547047324757359).csv";
     //private string fileName = "HeadsetPose2(637547047995676525).csv";
     //private string fileName = "HeadsetPose3(637547048653109104).csv";
-    private string fileName = "HeadsetPose4(637547049295046052).csv";
+    //private string fileName = "HeadsetPose4(637547049295046052).csv";
     //private string fileName = "HeadsetPose5(637547049989923940).csv";
+    private string fileName = "HeadsetPose1(637551324366594689).csv";
 
     public List<float[]> dataArrays = new List<float[]>();
     public GameObject lineObj;
@@ -42,8 +43,11 @@ public class Player : MonoBehaviour
         //Debug.Log(timer);
         float[] a = dataArrays[playbackCount]; //current
         float[] b = dataArrays[playbackCount-1]; //previous
-
+        
         if(timer > a[0] && playbackCount < dataArrays.Count-1){
+            Pose currentPose = new Pose(new Vector3(a[1], a[2],a[3]), new Quaternion(a[4], a[5], a[6], a[7]));
+            Pose prevPose = new Pose(new Vector3(b[1], b[2],b[3]), new Quaternion(b[4], b[5], b[6], b[7]));
+            Pose poseDisp = this.gameObject.GetComponent<RelativePose>().ComputeRelativePose(prevPose, currentPose);
             float xDisp = a[1] - b[1];
             float yDisp = a[2] - b[2];
             float zDisp = a[3] - b[3];
@@ -52,18 +56,21 @@ public class Player : MonoBehaviour
             //float zRotDisp = a[6] - b[6];
             //float wRotDisp = a[7] - b[7];
             float totalDisp = Mathf.Sqrt((xDisp*xDisp) + (yDisp*yDisp) + (zDisp*zDisp));
+            Debug.Log(poseDisp);
+
             
-            //xRot += xRotDisp;
-            //yRot += yRotDisp;
-            //zRot += zRotDisp;
-            //wRot += wRotDisp;
             if (!(totalDisp > 10)){
-                xPos += xDisp; 
-                yPos += yDisp; 
-                zPos += zDisp;
+                //xPos += xDisp; 
+                //yPos += yDisp; 
+                //zPos += zDisp;
+                //xRot += xRotDisp;
+                //yRot += yRotDisp;
+                //zRot += zRotDisp;
+                //wRot += wRotDisp;
                 this.gameObject.transform.position = new Vector3(xPos, yPos, zPos);
                 //this.gameObject.transform.rotation = new Quaternion(xRot, yRot, zRot, wRot);
                 this.gameObject.transform.rotation = new Quaternion(a[4], a[5], a[6], a[7]);
+                
                 if(timer > timeInstantiate){
                     Instantiate(marker, this.gameObject.transform.position, this.gameObject.transform.rotation);
                     timeInstantiate += instatiateTimeToAdd;
