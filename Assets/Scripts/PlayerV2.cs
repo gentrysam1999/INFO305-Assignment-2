@@ -7,11 +7,11 @@ using UnityEngine;
 public class PlayerV2 : MonoBehaviour
 {
     //private string fileName = "HeadsetPose1(637547047324757359).csv";
-    //private string fileName = "HeadsetPose2(637547047995676525).csv";
+    private string fileName = "HeadsetPose2(637547047995676525).csv";
     //private string fileName = "HeadsetPose3(637547048653109104).csv";
     //private string fileName = "HeadsetPose4(637547049295046052).csv";
     //private string fileName = "HeadsetPose5(637547049989923940).csv";
-    private string fileName = "HeadsetPose1(637551324366594689).csv";
+    //private string fileName = "HeadsetPose1(637551324366594689).csv";
 
     public List<float[]> dataArrays = new List<float[]>();
     public GameObject lineObj;
@@ -21,7 +21,7 @@ public class PlayerV2 : MonoBehaviour
     private float timeInstantiate = 0.0f;
     public float instatiateTimeToAdd = 5.0f;
     private int playbackCount = 1;
-    private int prevCount = 0;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -33,43 +33,56 @@ public class PlayerV2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // game object will move along the path using the time intervals    
-        // this is just initial stuff, need to add the checker for the difference 
-        // between values to help ignore if the headset gets reset to 0
         //Debug.Log(timer);
         float[] a = dataArrays[playbackCount]; //current
         float[] b = dataArrays[playbackCount-1]; //previous
-        LineRenderer lineRend = lineObj.GetComponent<LineRenderer>();
+        LineRenderer lineRend = lineObj.GetComponent<LineRenderer>(); //line renderer
         
         if(timer > a[0] && playbackCount < dataArrays.Count-1){
+            //put values from a and b arrays into current and previous poses
             Pose currentPose = new Pose(new Vector3(a[1], a[2],a[3]), new Quaternion(a[4], a[5], a[6], a[7]));
             Pose prevPose = new Pose(new Vector3(b[1], b[2],b[3]), new Quaternion(b[4], b[5], b[6], b[7]));
+            //get displacement from previous pose to current pose
             Pose poseDisp = this.gameObject.GetComponent<RelativePose>().ComputeRelativePose(prevPose, currentPose);
+            //calculate toatal displacement = squareroot(x^2 + y^2 + z^2)
             float totalDisp = Mathf.Sqrt((poseDisp.position.x*poseDisp.position.x) + (poseDisp.position.y*poseDisp.position.y) + (poseDisp.position.z*poseDisp.position.z));
-            Debug.Log(totalDisp);
+            //Debug.Log(totalDisp);
+
+            //only run when displacement isn't bigger than 2
             if (!(totalDisp > 2)){
+                //set the local position of the gameObject (relative to parent) to the poseDisp(relative pose)
                 this.gameObject.transform.localPosition = poseDisp.position;
                 this.gameObject.transform.localRotation = poseDisp.rotation;
+                //create a tempPose of the gameObject's world position
                 Pose tempPose = new Pose(this.gameObject.transform.position, this.gameObject.transform.rotation);
+                //set the parent's position to the tempPose
                 parent.transform.position = tempPose.position;
                 parent.transform.rotation = tempPose.rotation;
+                //set the gameobject back to the center of the parent
                 this.gameObject.transform.localPosition = new Vector3(0,0,0);
                 this.gameObject.transform.localRotation = new Quaternion(0,0,0,0);
-                lineRend.positionCount = playbackCount;
-                lineRend.SetPosition(playbackCount-1, tempPose.position);
+                
+                //lineRend.positionCount = playbackCount;
+                //lineRend.SetPosition(playbackCount-1, this.gameObject.transform.position);
+                
                 if(timer > timeInstantiate){
-
+                    //Instantiate an object at the gameobject's world position
                     var obj = Instantiate(marker, this.gameObject.transform.position, this.gameObject.transform.rotation);
-                    
+                    //increase lineRend array by 1 and add tempPose's position to it
+                    lineRend.positionCount = lineRend.positionCount+1;
+                    lineRend.SetPosition(lineRend.positionCount-1, tempPose.position);
+                    //update timeInstantiate
                     timeInstantiate += instatiateTimeToAdd;
-                    prevCount = playbackCount;
                 }
             }
+            //increase playBackCount by 1 until there aren't any more values to add from the array
             if(playbackCount < dataArrays.Count-1){
                 playbackCount += 1;
             }
+            //update time
             timer+=Time.deltaTime;
         }else{
+            //update time
             timer+=Time.deltaTime;
         }    
     }

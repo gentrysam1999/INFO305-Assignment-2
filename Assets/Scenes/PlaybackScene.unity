@@ -278,8 +278,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lineObj: {fileID: 1726506905}
   parent: {fileID: 639684274}
-  marker: {fileID: 91143823427409167, guid: 8dfd73be0c0c24aef976b3daf7d00d77, type: 3}
-  instatiateTimeToAdd: 5
+  marker: {fileID: 3161001218058352921, guid: 480a347481b534fc9a5bcd2a6f3d71a8, type: 3}
+  instatiateTimeToAdd: 0.1
 --- !u!1 &639684274
 GameObject:
   m_ObjectHideFlags: 0
@@ -737,7 +737,6 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1
