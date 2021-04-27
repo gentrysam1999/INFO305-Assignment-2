@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    //private string fileName = "HeadsetPose1(637547047324757359).csv";
-    private string fileName = "HeadsetPose2(637547047995676525).csv";
+    private string fileName = "HeadsetPose1(637547047324757359).csv";
+    //private string fileName = "HeadsetPose2(637547047995676525).csv";
     //private string fileName = "HeadsetPose3(637547048653109104).csv";
     //private string fileName = "HeadsetPose4(637547049295046052).csv";
     //private string fileName = "HeadsetPose5(637547049989923940).csv";
@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
             //float zRotDisp = a[6] - b[6];
             //float wRotDisp = a[7] - b[7];
             float totalDisp = Mathf.Sqrt((poseDisp.position.x*poseDisp.position.x) + (poseDisp.position.y*poseDisp.position.y) + (poseDisp.position.z*poseDisp.position.z));
-            //Debug.Log(poseDisp);
+            Debug.Log(poseDisp);
 
             
             if (!(totalDisp > 9999)){
@@ -73,9 +73,9 @@ public class Player : MonoBehaviour
                 xPos += poseDisp.position.x;
                 yPos += poseDisp.position.y;
                 zPos += poseDisp.position.z;
-                xRot = poseDisp.rotation.x;
-                yRot = poseDisp.rotation.y;
-                zRot = poseDisp.rotation.z;
+                xRot += poseDisp.rotation.x;
+                yRot += poseDisp.rotation.y;
+                zRot += poseDisp.rotation.z;
                 wRot = poseDisp.rotation.w;
 
                 this.gameObject.transform.position = new Vector3(xPos, yPos, zPos);
@@ -153,7 +153,7 @@ public class Player : MonoBehaviour
             Pose prevPose = new Pose(new Vector3(b[1], b[2],b[3]), new Quaternion(b[4], b[5], b[6], b[7]));
             Pose poseDisp = this.gameObject.GetComponent<RelativePose>().ComputeRelativePose(prevPose, currentPose);
             float totalDisp = Mathf.Sqrt((poseDisp.position.x*poseDisp.position.x) + (poseDisp.position.y*poseDisp.position.y) + (poseDisp.position.z*poseDisp.position.z));
-            Debug.Log(totalDisp);
+            //Debug.Log(totalDisp);
             //lineRend.SetPosition(i, new Vector3(a[1], a[2], a[3]));
             //if (!(xDisp > 10 || yDisp > 10 || zDisp > 10)){
             if (!(totalDisp > 5)){
