@@ -7,11 +7,11 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     //private string fileName = "HeadsetPose1(637547047324757359).csv";
-    //private string fileName = "HeadsetPose2(637547047995676525).csv";
+    private string fileName = "HeadsetPose2(637547047995676525).csv";
     //private string fileName = "HeadsetPose3(637547048653109104).csv";
     //private string fileName = "HeadsetPose4(637547049295046052).csv";
     //private string fileName = "HeadsetPose5(637547049989923940).csv";
-    private string fileName = "HeadsetPose1(637551324366594689).csv";
+    //private string fileName = "HeadsetPose1(637551324366594689).csv";
 
     public List<float[]> dataArrays = new List<float[]>();
     public GameObject lineObj;
@@ -21,8 +21,11 @@ public class Player : MonoBehaviour
     public float instatiateTimeToAdd = 5.0f;
     private int playbackCount = 1;
 
-    float xLine, yLine, zLine = 0.0f;
+    //float xLine, yLine, zLine = 0.0f;
     float xPos, yPos, zPos, xRot, yRot, zRot, wRot = 0.0f;
+    //Pose newPose = (new Vector3(0,0,0), new Quaternion(0,0,0,0));
+    Vector3 newVec = new Vector3(0,0,0);
+
     void Awake()
     {
         
@@ -48,18 +51,18 @@ public class Player : MonoBehaviour
             Pose currentPose = new Pose(new Vector3(a[1], a[2],a[3]), new Quaternion(a[4], a[5], a[6], a[7]));
             Pose prevPose = new Pose(new Vector3(b[1], b[2],b[3]), new Quaternion(b[4], b[5], b[6], b[7]));
             Pose poseDisp = this.gameObject.GetComponent<RelativePose>().ComputeRelativePose(prevPose, currentPose);
-            float xDisp = a[1] - b[1];
-            float yDisp = a[2] - b[2];
-            float zDisp = a[3] - b[3];
+            //float xDisp = a[1] - b[1];
+            //float yDisp = a[2] - b[2];
+            //float zDisp = a[3] - b[3];
             //float xRotDisp = a[4] - b[4];
             //float yRotDisp = a[5] - b[5];
             //float zRotDisp = a[6] - b[6];
             //float wRotDisp = a[7] - b[7];
-            float totalDisp = Mathf.Sqrt((xDisp*xDisp) + (yDisp*yDisp) + (zDisp*zDisp));
-            Debug.Log(poseDisp);
+            float totalDisp = Mathf.Sqrt((poseDisp.position.x*poseDisp.position.x) + (poseDisp.position.y*poseDisp.position.y) + (poseDisp.position.z*poseDisp.position.z));
+            //Debug.Log(poseDisp);
 
             
-            if (!(totalDisp > 10)){
+            if (!(totalDisp > 9999)){
                 //xPos += xDisp; 
                 //yPos += yDisp; 
                 //zPos += zDisp;
@@ -67,9 +70,17 @@ public class Player : MonoBehaviour
                 //yRot += yRotDisp;
                 //zRot += zRotDisp;
                 //wRot += wRotDisp;
+                xPos += poseDisp.position.x;
+                yPos += poseDisp.position.y;
+                zPos += poseDisp.position.z;
+                xRot = poseDisp.rotation.x;
+                yRot = poseDisp.rotation.y;
+                zRot = poseDisp.rotation.z;
+                wRot = poseDisp.rotation.w;
+
                 this.gameObject.transform.position = new Vector3(xPos, yPos, zPos);
-                //this.gameObject.transform.rotation = new Quaternion(xRot, yRot, zRot, wRot);
-                this.gameObject.transform.rotation = new Quaternion(a[4], a[5], a[6], a[7]);
+                this.gameObject.transform.rotation = new Quaternion(xRot, yRot, zRot, wRot);
+                //this.gameObject.transform.rotation = new Quaternion(a[4], a[5], a[6], a[7]);
                 
                 if(timer > timeInstantiate){
                     Instantiate(marker, this.gameObject.transform.position, this.gameObject.transform.rotation);
@@ -135,21 +146,27 @@ public class Player : MonoBehaviour
         for (int i = 1; i < dataArrays.Count; i++){
             float[] a = dataArrays[i];
             float[] b = dataArrays[i-1];
-            float xDisp = a[1] - b[1];
-            float yDisp = a[2] - b[2];
-            float zDisp = a[3] - b[3];
-            float totalDisp = Mathf.Sqrt((xDisp*xDisp) + (yDisp*yDisp) + (zDisp*zDisp));
-            
+            //float xDisp = a[1] - b[1];
+            //float yDisp = a[2] - b[2];
+            //float zDisp = a[3] - b[3];
+            Pose currentPose = new Pose(new Vector3(a[1], a[2],a[3]), new Quaternion(a[4], a[5], a[6], a[7]));
+            Pose prevPose = new Pose(new Vector3(b[1], b[2],b[3]), new Quaternion(b[4], b[5], b[6], b[7]));
+            Pose poseDisp = this.gameObject.GetComponent<RelativePose>().ComputeRelativePose(prevPose, currentPose);
+            float totalDisp = Mathf.Sqrt((poseDisp.position.x*poseDisp.position.x) + (poseDisp.position.y*poseDisp.position.y) + (poseDisp.position.z*poseDisp.position.z));
+            Debug.Log(totalDisp);
             //lineRend.SetPosition(i, new Vector3(a[1], a[2], a[3]));
             //if (!(xDisp > 10 || yDisp > 10 || zDisp > 10)){
-            if (!(totalDisp > 10)){
-                xLine += xDisp; 
-                yLine += yDisp; 
-                zLine += zDisp; 
-                lineRend.SetPosition(i, new Vector3(xLine, yLine, zLine));
+            if (!(totalDisp > 5)){
+                //xLine += poseDisp.position.x;
+                //yLine += poseDisp.position.y;
+                //zLine += poseDisp.position.z; 
+                newVec += poseDisp.position;
+                //lineRend.SetPosition(i, new Vector3(xLine, yLine, zLine));
+                lineRend.SetPosition(i, newVec);
             }
             else{
-                lineRend.SetPosition(i, new Vector3(xLine, yLine, zLine));
+                //lineRend.SetPosition(i, new Vector3(xLine, yLine, zLine));
+                lineRend.SetPosition(i, newVec);
             }
         }
     }
