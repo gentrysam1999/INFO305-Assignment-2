@@ -17,7 +17,7 @@ public class PlayerV2 : MonoBehaviour
     public GameObject lineObj;
     public GameObject parent;
     public GameObject marker;
-    public int poseCount;
+   
     private float timer = 0.0f;
     private float timeInstantiate = 0.0f;
     public float instatiateTimeToAdd = 5.0f;
@@ -27,8 +27,8 @@ public class PlayerV2 : MonoBehaviour
 
     public float timeStepDuration;
 
+    public int poseCount;
 
-    
 
     // Start is called before the first frame update
     void Start()
@@ -57,7 +57,7 @@ public class PlayerV2 : MonoBehaviour
 
             timeLeft = timer % timeStepDuration;
             Debug.Log(timeLeft);
-
+            this.MoveCalc(currentPose, prevPose, poseCount, timeLeft);
 
             //only run when displacement isn't bigger than 2
             if (!(totalDisp > 2)){
@@ -139,9 +139,9 @@ public class PlayerV2 : MonoBehaviour
         }
     }
 
-    public void MoveCalc(Pose currentPose, Pose previousPose, -)
+    public void MoveCalc(Pose currentPose, Pose previousPose, int poseCount, float timeLeft)
     {
        
-
+    Debug.Log(currentPose +  "," + previousPose + "," + poseCount + "," + timeLeft);
     }
 }
