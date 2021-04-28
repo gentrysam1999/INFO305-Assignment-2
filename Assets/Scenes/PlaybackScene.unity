@@ -281,7 +281,7 @@ MonoBehaviour:
   marker: {fileID: 3161001218058352921, guid: 480a347481b534fc9a5bcd2a6f3d71a8, type: 3}
   instatiateTimeToAdd: 0.1
   timeStepDuration: 0.1
-  poseCount: 5
+  poseCount: 100
   poseCurrentCount: 1
 --- !u!1 &639684274
 GameObject:

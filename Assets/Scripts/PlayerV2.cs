@@ -33,7 +33,7 @@ public class PlayerV2 : MonoBehaviour
     private List<float>[] dispValues;
    //private List<float[]> dispValues = new List<float[]>();
 
-    private float[] setUp = new float[5];
+    private float[] setUp;
 
 
 
@@ -46,6 +46,7 @@ public class PlayerV2 : MonoBehaviour
     {
         this.ReadValues();
         dispValues = new List<float>[poseCount];
+        setUp = new float[poseCount];
     }
 
     // Update is called once per frame
