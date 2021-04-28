@@ -7,11 +7,11 @@ using UnityEngine;
 public class PlayerV2 : MonoBehaviour
 {
     //private string fileName = "HeadsetPose1(637547047324757359).csv";
-    private string fileName = "HeadsetPose2(637547047995676525).csv";
+    //private string fileName = "HeadsetPose2(637547047995676525).csv";
     //private string fileName = "HeadsetPose3(637547048653109104).csv";
     //private string fileName = "HeadsetPose4(637547049295046052).csv";
     //private string fileName = "HeadsetPose5(637547049989923940).csv";
-    //private string fileName = "HeadsetPose1(637551324366594689).csv";
+    private string fileName = "HeadsetPose1(637551324366594689).csv";
 
     public List<float[]> dataArrays = new List<float[]>();
     public GameObject lineObj;
@@ -21,6 +21,12 @@ public class PlayerV2 : MonoBehaviour
     private float timeInstantiate = 0.0f;
     public float instatiateTimeToAdd = 5.0f;
     private int playbackCount = 1;
+
+    private float timeLeft;
+
+    public float timeStepDuration;
+
+
     
 
     // Start is called before the first frame update
@@ -48,6 +54,9 @@ public class PlayerV2 : MonoBehaviour
             float totalDisp = Mathf.Sqrt((poseDisp.position.x*poseDisp.position.x) + (poseDisp.position.y*poseDisp.position.y) + (poseDisp.position.z*poseDisp.position.z));
             //Debug.Log(totalDisp);
 
+            timeLeft = timer % timeStepDuration;
+            Debug.Log(timeLeft);
+
             //only run when displacement isn't bigger than 2
             if (!(totalDisp > 2)){
                 //set the local position of the gameObject (relative to parent) to the poseDisp(relative pose)
@@ -65,6 +74,7 @@ public class PlayerV2 : MonoBehaviour
                 //lineRend.positionCount = playbackCount;
                 //lineRend.SetPosition(playbackCount-1, this.gameObject.transform.position);
                 
+
                 if(timer > timeInstantiate){
                     //Instantiate an object at the gameobject's world position
                     var obj = Instantiate(marker, this.gameObject.transform.position, this.gameObject.transform.rotation);
