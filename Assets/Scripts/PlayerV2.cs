@@ -17,6 +17,7 @@ public class PlayerV2 : MonoBehaviour
     public GameObject lineObj;
     public GameObject parent;
     public GameObject marker;
+    public int poseCount;
     private float timer = 0.0f;
     private float timeInstantiate = 0.0f;
     public float instatiateTimeToAdd = 5.0f;
@@ -56,6 +57,7 @@ public class PlayerV2 : MonoBehaviour
 
             timeLeft = timer % timeStepDuration;
             Debug.Log(timeLeft);
+
 
             //only run when displacement isn't bigger than 2
             if (!(totalDisp > 2)){
@@ -135,5 +137,11 @@ public class PlayerV2 : MonoBehaviour
             Console.WriteLine("The file could not be read:");
             Console.WriteLine(e.Message);
         }
+    }
+
+    public void MoveCalc(Pose currentPose, Pose previousPose, -)
+    {
+       
+
     }
 }
