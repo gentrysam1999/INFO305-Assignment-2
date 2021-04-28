@@ -28,6 +28,16 @@ public class PlayerV2 : MonoBehaviour
     public float timeStepDuration;
 
     public int poseCount;
+    public int poseCurrentCount = 1;
+
+    private List<float[]> dispValues = new List<float[]>();
+
+    private float[] setUp = new float[5];
+
+
+
+    private bool isReady = false;
+
 
 
     // Start is called before the first frame update
@@ -57,7 +67,7 @@ public class PlayerV2 : MonoBehaviour
 
             timeLeft = timer % timeStepDuration;
             Debug.Log(timeLeft);
-            this.MoveCalc(currentPose, prevPose, poseCount, timeLeft);
+           
 
             //only run when displacement isn't bigger than 2
             if (!(totalDisp > 2)){
@@ -72,12 +82,17 @@ public class PlayerV2 : MonoBehaviour
                 //set the gameobject back to the center of the parent
                 this.gameObject.transform.localPosition = new Vector3(0,0,0);
                 this.gameObject.transform.localRotation = new Quaternion(0,0,0,0);
-                
+
+                if (timer > timeStepDuration)
+                {
+                    this.MoveCalc(totalDisp, poseCount, timeLeft);
+                }
+
                 //lineRend.positionCount = playbackCount;
                 //lineRend.SetPosition(playbackCount-1, this.gameObject.transform.position);
-                
 
-                if(timer > timeInstantiate){
+
+                if (timer > timeInstantiate){
                     //Instantiate an object at the gameobject's world position
                     var obj = Instantiate(marker, this.gameObject.transform.position, this.gameObject.transform.rotation);
                     //increase lineRend array by 1 and add tempPose's position to it
@@ -139,9 +154,33 @@ public class PlayerV2 : MonoBehaviour
         }
     }
 
-    public void MoveCalc(Pose currentPose, Pose previousPose, int poseCount, float timeLeft)
+    public void MoveCalc(float totalDisp, int poseCount, float timeLeft)
+
     {
        
-    Debug.Log(currentPose +  "," + previousPose + "," + poseCount + "," + timeLeft);
+     if (poseCount < 5)
+        {
+            if (!isReady)
+            {
+                if (poseCurrentCount < poseCount)
+                {
+                    setUp[poseCurrentCount-1] = totalDisp;
+                    poseCurrentCount++;
+
+                }
+                else
+                {
+                    setUp[poseCurrentCount - 1] = totalDisp;
+                    for (int i = 0; i <= poseCount-1; i++;){
+                        for (int j = 0; j <= i; j++;){
+
+                        }
+                    }
+                    isReady = true;
+                }
+            }
+        }
+     
+    //Debug.Log(currentPose +  "," + previousPose + "," + poseCount + "," + timeLeft);
     }
 }
