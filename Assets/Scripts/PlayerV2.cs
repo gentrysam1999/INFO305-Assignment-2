@@ -26,6 +26,8 @@ public class PlayerV2 : MonoBehaviour
 
     public float timeStepDuration;
 
+    
+
 
     
 
@@ -56,6 +58,7 @@ public class PlayerV2 : MonoBehaviour
 
             timeLeft = timer % timeStepDuration;
             Debug.Log(timeLeft);
+
 
             //only run when displacement isn't bigger than 2
             if (!(totalDisp > 2)){
