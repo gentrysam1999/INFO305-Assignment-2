@@ -30,7 +30,8 @@ public class PlayerV2 : MonoBehaviour
     public int poseCount;
     public int poseCurrentCount = 1;
 
-    private List<float[]> dispValues = new List<float[]>();
+    private List<float>[] dispValues;
+   //private List<float[]> dispValues = new List<float[]>();
 
     private float[] setUp = new float[5];
 
@@ -44,7 +45,7 @@ public class PlayerV2 : MonoBehaviour
     void Start()
     {
         this.ReadValues();
-        
+        dispValues = new List<float>[poseCount];
     }
 
     // Update is called once per frame
@@ -171,9 +172,9 @@ public class PlayerV2 : MonoBehaviour
                 else
                 {
                     setUp[poseCurrentCount - 1] = totalDisp;
-                    for (int i = 0; i <= poseCount-1; i++;){
-                        for (int j = 0; j <= i; j++;){
-
+                    for (int i = 0; i <= poseCount-1; i++){
+                        for (int j = 0; j <= i; j++){
+                                
                         }
                     }
                     isReady = true;
