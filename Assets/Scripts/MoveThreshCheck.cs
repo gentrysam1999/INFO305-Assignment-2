@@ -12,7 +12,7 @@ public class MoveThreshCheck
     public float yPos;
     public float zPos;
 
-    public string findMovement(float[] poses, int poseCount)
+    public string findMovement(Pose[] poses, int poseCount)
     {
         for (int j = 0; j <= poseCount - 1; j++)
         {
