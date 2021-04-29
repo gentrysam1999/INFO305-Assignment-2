@@ -35,6 +35,8 @@ public class HoloDisplayMove : MonoBehaviour
         timer+=Time.deltaTime;
     }
 
+   
+
     public void MoveCalc(float totalDisp, int poseCount, float timeLeft)
 
     {
