@@ -12,7 +12,7 @@ public class MoveThreshCheck
     public float yPos;
     public float zPos;
 
-    public string FindMovement(float[] poses, int poseCount)
+    public string findMovement(float[] poses, int poseCount)
     {
         for (int j = 0; j <= poseCount - 1; j++)
         {
@@ -26,22 +26,35 @@ public class MoveThreshCheck
         yPos = (yPos / poseCount);
         zPos = (zPos / poseCount);
 
-        if(xPos <= standStill)
+        if (xPos <= standStill)
         {
             return "Standing Still";
 
-        }else if( xPos >= walking && xPos < jogging)
+        }
+        else if (xPos >= walking && xPos < jogging)
 
         {
             return "Walking";
 
-        }else if(xPos >= jogging)
+        }
+        else if (xPos >= jogging)
 
         {
-            return "Jogging"
+            return "Jogging";
+
+        } else if (yPos > sitUps)
+
+        {
+            return "Sit ups";
+        }
+
+        else
+
+        {
+            return "Unknown activity";
         }
 
 
- 
+
     }
 }
