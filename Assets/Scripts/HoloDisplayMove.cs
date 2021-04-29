@@ -23,6 +23,7 @@ public class HoloDisplayMove : MonoBehaviour
     void Start()
     {
         setUp = new Pose[poseCount];
+        dispValues = new List<Pose>[poseCount];
         prevPose = new Pose(this.gameObject.transform.position, this.gameObject.transform.rotation);
         startTime = timer;
     }

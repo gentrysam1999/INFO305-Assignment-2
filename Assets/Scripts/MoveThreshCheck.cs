@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveThreshCheck
+public class MoveThreshCheck : MonoBehaviour
 {
     public float standStill;
     public float walking;
