@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -280,8 +280,9 @@ MonoBehaviour:
   parent: {fileID: 639684274}
   marker: {fileID: 3161001218058352921, guid: 480a347481b534fc9a5bcd2a6f3d71a8, type: 3}
   instatiateTimeToAdd: 0.1
-  timeStepDuration: 1
-  poseCount: 5
+  timeStepDuration: 0.1
+  poseCount: 30
+  poseCurrentCount: 1
 --- !u!1 &639684274
 GameObject:
   m_ObjectHideFlags: 0

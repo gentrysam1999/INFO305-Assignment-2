@@ -30,9 +30,10 @@ public class PlayerV2 : MonoBehaviour
     public int poseCount;
     public int poseCurrentCount = 1;
 
-    private List<float[]> dispValues = new List<float[]>();
+    private List<float>[] dispValues;
+   //private List<float[]> dispValues = new List<float[]>();
 
-    private float[] setUp = new float[5];
+    private float[] setUp;
 
 
 
@@ -44,7 +45,8 @@ public class PlayerV2 : MonoBehaviour
     void Start()
     {
         this.ReadValues();
-        
+        dispValues = new List<float>[poseCount];
+        setUp = new float[poseCount];
     }
 
     // Update is called once per frame
@@ -66,7 +68,7 @@ public class PlayerV2 : MonoBehaviour
             //Debug.Log(totalDisp);
 
             timeLeft = timer % timeStepDuration;
-            Debug.Log(timeLeft);
+            //Debug.Log(timeLeft);
            
 
             //only run when displacement isn't bigger than 2
@@ -83,9 +85,10 @@ public class PlayerV2 : MonoBehaviour
                 this.gameObject.transform.localPosition = new Vector3(0,0,0);
                 this.gameObject.transform.localRotation = new Quaternion(0,0,0,0);
 
+                this.MoveCalc(totalDisp, poseCount, timeLeft);
                 if (timer > timeStepDuration)
                 {
-                    this.MoveCalc(totalDisp, poseCount, timeLeft);
+                    //this.MoveCalc(totalDisp, poseCount, timeLeft);
                 }
 
                 //lineRend.positionCount = playbackCount;
@@ -157,29 +160,50 @@ public class PlayerV2 : MonoBehaviour
     public void MoveCalc(float totalDisp, int poseCount, float timeLeft)
 
     {
-       
-     if (poseCount < 5)
+        if (!isReady)
         {
-            if (!isReady)
+            if (poseCurrentCount < poseCount)
             {
-                if (poseCurrentCount < poseCount)
-                {
-                    setUp[poseCurrentCount-1] = totalDisp;
-                    poseCurrentCount++;
-
+                setUp[poseCurrentCount-1] = totalDisp;
+                poseCurrentCount++;
+            }
+            else
+            {
+                setUp[poseCurrentCount - 1] = totalDisp;
+                for (int i = 0; i <= poseCount-1; i++){
+                    for (int j = 0; j <= i; j++){
+                            List<float> tempList = new List<float>();
+                            if(dispValues[i-j]!=null){
+                                tempList.AddRange(dispValues[i-j]);
+                            }
+                            tempList.Add(setUp[i]);
+                            dispValues[i-j] = tempList;    
+                    }   
                 }
-                else
-                {
-                    setUp[poseCurrentCount - 1] = totalDisp;
-                    for (int i = 0; i <= poseCount-1; i++;){
-                        for (int j = 0; j <= i; j++;){
-
-                        }
+                poseCurrentCount = 0;
+                isReady = true;
+            }
+        }
+        else{
+            for (int i = 0; i <= poseCount-1; i++){
+                if(dispValues[i].Count<=poseCount){
+                    List<float> tempList = new List<float>();
+                    tempList.AddRange(dispValues[i]);
+                    tempList.Add(totalDisp);
+                    dispValues[i] = tempList;
+                }else{
+                    float threshCheck = 0;
+                    for (int j = 0; j <= poseCount-1; j++){
+                        threshCheck += dispValues[i][j];
                     }
-                    isReady = true;
+                    threshCheck = (threshCheck/poseCount);
+                    Debug.Log(threshCheck);
+                    dispValues[i].Clear();
+                    dispValues[i].Add(totalDisp); 
                 }
             }
         }
+        
      
     //Debug.Log(currentPose +  "," + previousPose + "," + poseCount + "," + timeLeft);
     }
