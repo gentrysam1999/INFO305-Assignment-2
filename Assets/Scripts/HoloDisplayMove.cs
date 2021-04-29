@@ -44,6 +44,7 @@ public class HoloDisplayMove : MonoBehaviour
             if (!(totalDisp > 2)){
                 this.MoveCalc(poseDisp, poseCount);
             }
+            timer = 0;
         }else{
             timer+=Time.deltaTime;
         }
