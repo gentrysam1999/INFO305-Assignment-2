@@ -18,7 +18,7 @@ public class MoveThreshCheck
         {
             xPos += poses[j].position.x;
             yPos += poses[j].position.y;
-            zPos += poses[j].position.z
+            zPos += poses[j].position.z;
 
         }
 
