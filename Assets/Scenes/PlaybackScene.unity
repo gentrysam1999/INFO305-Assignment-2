@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -354,13 +354,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47591ad91c1655045bf82ff0d8471e70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  standStill: 0.5
-  walking: 2
-  jogging: 5
+  standStill: 0.001
+  walking: 0.1
+  jogging: 1
   sitUps: 0
   xPos: 0
   yPos: 0
   zPos: 0
+  xRot: 0
+  yRot: 0
+  zRot: 0
 --- !u!114 &639684279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,8 +376,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aed11314c1a2b48029f56d086fc889d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeStepDuration: 1
-  poseCount: 5
+  timeStepDuration: 0.1
+  poseCount: 10
   poseCurrentCount: 1
   movement: 
 --- !u!1 &856666277

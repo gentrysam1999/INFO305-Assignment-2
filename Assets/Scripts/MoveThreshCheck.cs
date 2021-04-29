@@ -11,6 +11,7 @@ public class MoveThreshCheck : MonoBehaviour
     public float xPos;
     public float yPos;
     public float zPos;
+    private Vector3 angle;
     public float xRot;
     public float yRot;
     public float zRot;
@@ -22,9 +23,10 @@ public class MoveThreshCheck : MonoBehaviour
             xPos += poses[j].position.x;
             yPos += poses[j].position.y;
             zPos += poses[j].position.z;
-            xRot += poses[j].position.x.eulerAngles;
-            yRot += poses[j].position.y.eulerAngles;
-            zRot += poses[j].position.z.eulerAngles;
+            angle = poses[j].rotation.eulerAngles;
+            xRot += angle.x;
+            yRot += angle.y;
+            zRot += angle.z;
 
         }
 
@@ -35,18 +37,18 @@ public class MoveThreshCheck : MonoBehaviour
         yRot = (yRot / poseCount);
         zRot = (zRot / poseCount);
 
-        if (xPos <= standStill)
+        if (zPos <= standStill)
         {
             return "Standing Still";
 
         }
-        else if (xPos >= walking && xPos < jogging)
+        else if (zPos >= walking && zPos < jogging)
 
         {
             return "Walking";
 
         }
-        else if (xPos >= jogging)
+        else if (zPos >= jogging)
 
         {
             return "Jogging";

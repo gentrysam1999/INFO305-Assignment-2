@@ -7,11 +7,11 @@ using UnityEngine;
 public class PlayerV2 : MonoBehaviour
 {
     //private string fileName = "HeadsetPose1(637547047324757359).csv";
-    //private string fileName = "HeadsetPose2(637547047995676525).csv";
+    private string fileName = "HeadsetPose2(637547047995676525).csv";
     //private string fileName = "HeadsetPose3(637547048653109104).csv";
     //private string fileName = "HeadsetPose4(637547049295046052).csv";
     //private string fileName = "HeadsetPose5(637547049989923940).csv";
-    private string fileName = "HeadsetPose1(637551324366594689).csv";
+    //private string fileName = "HeadsetPose1(637551324366594689).csv";
 
     public List<float[]> dataArrays = new List<float[]>();
     public GameObject lineObj;
@@ -85,11 +85,11 @@ public class PlayerV2 : MonoBehaviour
                 this.gameObject.transform.localPosition = new Vector3(0,0,0);
                 this.gameObject.transform.localRotation = new Quaternion(0,0,0,0);
 
-                this.MoveCalc(totalDisp, poseCount, timeLeft);
-                if (timer > timeStepDuration)
-                {
+                //this.MoveCalc(totalDisp, poseCount, timeLeft);
+                //if (timer > timeStepDuration)
+                //{
                     //this.MoveCalc(totalDisp, poseCount, timeLeft);
-                }
+                //}
 
                 //lineRend.positionCount = playbackCount;
                 //lineRend.SetPosition(playbackCount-1, this.gameObject.transform.position);
@@ -157,54 +157,54 @@ public class PlayerV2 : MonoBehaviour
         }
     }
 
-    public void MoveCalc(float totalDisp, int poseCount, float timeLeft)
+    // public void MoveCalc(float totalDisp, int poseCount, float timeLeft)
 
-    {
-        if (!isReady)
-        {
-            if (poseCurrentCount < poseCount)
-            {
-                setUp[poseCurrentCount-1] = totalDisp;
-                poseCurrentCount++;
-            }
-            else
-            {
-                setUp[poseCurrentCount - 1] = totalDisp;
-                for (int i = 0; i <= poseCount-1; i++){
-                    for (int j = 0; j <= i; j++){
-                            List<float> tempList = new List<float>();
-                            if(dispValues[i-j]!=null){
-                                tempList.AddRange(dispValues[i-j]);
-                            }
-                            tempList.Add(setUp[i]);
-                            dispValues[i-j] = tempList;    
-                    }   
-                }
-                poseCurrentCount = 0;
-                isReady = true;
-            }
-        }
-        else{
-            for (int i = 0; i <= poseCount-1; i++){
-                if(dispValues[i].Count<=poseCount){
-                    List<float> tempList = new List<float>();
-                    tempList.AddRange(dispValues[i]);
-                    tempList.Add(totalDisp);
-                    dispValues[i] = tempList;
-                }else{
-                    float threshCheck = 0;
-                    for (int j = 0; j <= poseCount-1; j++){
-                        threshCheck += dispValues[i][j];
-                    }
-                    threshCheck = (threshCheck/poseCount);
-                    Debug.Log(threshCheck);
-                    dispValues[i].Clear();
-                    dispValues[i].Add(totalDisp); 
-                }
-            }
-        }
+    // {
+    //     if (!isReady)
+    //     {
+    //         if (poseCurrentCount < poseCount)
+    //         {
+    //             setUp[poseCurrentCount-1] = totalDisp;
+    //             poseCurrentCount++;
+    //         }
+    //         else
+    //         {
+    //             setUp[poseCurrentCount - 1] = totalDisp;
+    //             for (int i = 0; i <= poseCount-1; i++){
+    //                 for (int j = 0; j <= i; j++){
+    //                         List<float> tempList = new List<float>();
+    //                         if(dispValues[i-j]!=null){
+    //                             tempList.AddRange(dispValues[i-j]);
+    //                         }
+    //                         tempList.Add(setUp[i]);
+    //                         dispValues[i-j] = tempList;    
+    //                 }   
+    //             }
+    //             poseCurrentCount = 0;
+    //             isReady = true;
+    //         }
+    //     }
+    //     else{
+    //         for (int i = 0; i <= poseCount-1; i++){
+    //             if(dispValues[i].Count<=poseCount){
+    //                 List<float> tempList = new List<float>();
+    //                 tempList.AddRange(dispValues[i]);
+    //                 tempList.Add(totalDisp);
+    //                 dispValues[i] = tempList;
+    //             }else{
+    //                 float threshCheck = 0;
+    //                 for (int j = 0; j <= poseCount-1; j++){
+    //                     threshCheck += dispValues[i][j];
+    //                 }
+    //                 threshCheck = (threshCheck/poseCount);
+    //                 Debug.Log(threshCheck);
+    //                 dispValues[i].Clear();
+    //                 dispValues[i].Add(totalDisp); 
+    //             }
+    //         }
+    //     }
         
      
-    //Debug.Log(currentPose +  "," + previousPose + "," + poseCount + "," + timeLeft);
-    }
+    // //Debug.Log(currentPose +  "," + previousPose + "," + poseCount + "," + timeLeft);
+    // }
 }
