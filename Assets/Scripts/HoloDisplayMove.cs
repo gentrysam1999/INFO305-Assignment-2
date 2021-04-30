@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HoloDisplayMove : MonoBehaviour
 {
+    public GameObject textObj;
     private float timer = 0.0f;
     private float timeLeft;
     public float timeStepDuration;
@@ -89,6 +90,10 @@ public class HoloDisplayMove : MonoBehaviour
                     movement = this.gameObject.GetComponent<MoveThreshCheck>().findMovement(dispValues[i], poseCount);
                     
                     Debug.Log(movement);
+                    if(textObj != null)
+                    {
+                        textObj.GetComponent<TextMesh>().text = (movement);
+                    }
                     dispValues[i].Clear();
                     dispValues[i].Add(poseDisp); 
                 }
