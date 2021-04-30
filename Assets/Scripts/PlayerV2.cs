@@ -37,7 +37,7 @@ public class PlayerV2 : MonoBehaviour
 
 
 
-    private bool isReady = false;
+    //private bool isReady = false;
 
 
 
@@ -156,55 +156,4 @@ public class PlayerV2 : MonoBehaviour
             Console.WriteLine(e.Message);
         }
     }
-
-    // public void MoveCalc(float totalDisp, int poseCount, float timeLeft)
-
-    // {
-    //     if (!isReady)
-    //     {
-    //         if (poseCurrentCount < poseCount)
-    //         {
-    //             setUp[poseCurrentCount-1] = totalDisp;
-    //             poseCurrentCount++;
-    //         }
-    //         else
-    //         {
-    //             setUp[poseCurrentCount - 1] = totalDisp;
-    //             for (int i = 0; i <= poseCount-1; i++){
-    //                 for (int j = 0; j <= i; j++){
-    //                         List<float> tempList = new List<float>();
-    //                         if(dispValues[i-j]!=null){
-    //                             tempList.AddRange(dispValues[i-j]);
-    //                         }
-    //                         tempList.Add(setUp[i]);
-    //                         dispValues[i-j] = tempList;    
-    //                 }   
-    //             }
-    //             poseCurrentCount = 0;
-    //             isReady = true;
-    //         }
-    //     }
-    //     else{
-    //         for (int i = 0; i <= poseCount-1; i++){
-    //             if(dispValues[i].Count<=poseCount){
-    //                 List<float> tempList = new List<float>();
-    //                 tempList.AddRange(dispValues[i]);
-    //                 tempList.Add(totalDisp);
-    //                 dispValues[i] = tempList;
-    //             }else{
-    //                 float threshCheck = 0;
-    //                 for (int j = 0; j <= poseCount-1; j++){
-    //                     threshCheck += dispValues[i][j];
-    //                 }
-    //                 threshCheck = (threshCheck/poseCount);
-    //                 Debug.Log(threshCheck);
-    //                 dispValues[i].Clear();
-    //                 dispValues[i].Add(totalDisp); 
-    //             }
-    //         }
-    //     }
-        
-     
-    // //Debug.Log(currentPose +  "," + previousPose + "," + poseCount + "," + timeLeft);
-    // }
 }
