@@ -355,7 +355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47591ad91c1655045bf82ff0d8471e70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  standStill: 0.001
+  standStill: 0.005
   walking: 0.05
   jogging: 0.2
   sitUps: 0
