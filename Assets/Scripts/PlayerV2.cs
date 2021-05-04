@@ -10,17 +10,21 @@ public class PlayerV2 : MonoBehaviour
     //private string fileName = "walk2.csv";
     //private string fileName = "walk3.csv";
     //private string fileName = "walk4.csv";
-    private string fileName = "walk5.csv";
+    //private string fileName = "walk5.csv";
+    private string fileName = "stairs1.csv";
+    //private string fileName = "stairs2.csv";
     //private string fileName = "stairs3.csv";
     //private string fileName = "run1.csv";
-    //private string fileName = "stairs2.csv";
-    //private string fileName = "run3.csv";
-    //private string fileName = "stairs1.csv";
-    //private string fileName = "elevator1.csv";
     //private string fileName = "SamRunTest1.csv";
+    //private string fileName = "run3.csv";
     //private string fileName = "TiaanSquat1.csv";
     //private string fileName = "TiaanStill1.csv";
     //private string fileName = "SamSpin1.csv";
+    //private string fileName = "elevator1.csv";
+    
+    
+    
+    
 
     public List<float[]> dataArrays = new List<float[]>();
     public GameObject lineObj;
