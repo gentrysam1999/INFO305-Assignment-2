@@ -58,7 +58,7 @@ public class MoveThreshCheck : MonoBehaviour
         }
         
 
-        if (zPos <= 0.02 && zPos >=-0.02 && yPos <= 0.003 && yPos >=-0.003) //not moving forward, back, up or down
+        if (zPos <= 0.05 && zPos >=-0.05 && yPos <= 0.003 && yPos >=-0.003) //not moving forward, back, up or down
         {
             if(yRot > 0 && yRot < 40){ //rotation threshold for clockwise
                 if(spinLeft){
@@ -86,16 +86,17 @@ public class MoveThreshCheck : MonoBehaviour
             return "Standing Still";
 
         }
-        else if (zPos >= 0.02 && zPos < 0.23) //threshold for walking
+        else if(zPos >= 0.03 && yPos > 0.025){ //threshold for going up stairs
+            squatCount = 0; 
+            return "Going Up Stairs";
+        }else if(zPos >= 0.03 && yPos < -0.025){ //threshold for going down stairs
+            squatCount = 0; 
+            return "Going Down Stairs";
+        }
+        else if (zPos >= 0.05 && zPos < 0.23) //threshold for walking
         {
             squatCount = 0;  
-            if(yPos>0.02){ //if in walking threshold and moving up
-                return "Going Up Stairs";
-            }else if(yPos<-0.02){ //if in walking threshold and moving down
-                return "Going Down Stairs";
-            }else{
-                return "Walking";
-            }
+            return "Walking";   
         }
         else if (zPos >= 0.23) //any forward movement faster than walking.
         {
