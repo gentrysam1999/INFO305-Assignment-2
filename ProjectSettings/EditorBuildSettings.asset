@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DataRecord.unity
     guid: b447e534b6b95174c8bd9a1742893543
+  - enabled: 1
+    path: Assets/Scenes/HoloMoveCheck.unity
+    guid: f3825b5d701b04ba69f01afa9806a9d5
   m_configObjects: {}
