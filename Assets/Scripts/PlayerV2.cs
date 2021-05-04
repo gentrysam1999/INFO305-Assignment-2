@@ -7,11 +7,11 @@ using UnityEngine;
 public class PlayerV2 : MonoBehaviour
 {
     //private string fileName = "walk1.csv";
-    //private string fileName = "HeadsetPose2(637547047995676525).csv";
-    //private string fileName = "HeadsetPose3(637547048653109104).csv";
-    //private string fileName = "HeadsetPose4(637547049295046052).csv";
-    //private string fileName = "HeadsetPose5(637547049989923940).csv";
-    private string fileName = "stairs3.csv";
+    //private string fileName = "walk2.csv";
+    //private string fileName = "walk3.csv";
+    //private string fileName = "walk4.csv";
+    private string fileName = "walk5.csv";
+    //private string fileName = "stairs3.csv";
     //private string fileName = "run1.csv";
     //private string fileName = "stairs2.csv";
     //private string fileName = "run3.csv";
