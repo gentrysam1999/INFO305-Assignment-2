@@ -51,7 +51,10 @@ public class MoveThreshCheck : MonoBehaviour
         zRot = (zRot / poseCount);
 
         allThreshValues += (xPos + "," + yPos + "," + zPos + "," + xRot + "," + yRot + "," + zRot + "\n");
-        this.gameObject.GetComponent<RecordData>().WriteData("ThreshValues.csv" , allThreshValues);
+        if(this.gameObject.GetComponent<RecordData>() != null){
+            this.gameObject.GetComponent<RecordData>().WriteData("ThreshValues.csv" , allThreshValues);
+        }
+        
 
         if (zPos <= standStill && yPos <= standStill) //not moving forward or up
         {

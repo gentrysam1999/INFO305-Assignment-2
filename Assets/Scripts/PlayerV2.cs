@@ -6,12 +6,12 @@ using UnityEngine;
 
 public class PlayerV2 : MonoBehaviour
 {
-    //private string fileName = "HeadsetPose1(637547047324757359).csv";
+    //private string fileName = "walk1.csv";
     //private string fileName = "HeadsetPose2(637547047995676525).csv";
     //private string fileName = "HeadsetPose3(637547048653109104).csv";
     //private string fileName = "HeadsetPose4(637547049295046052).csv";
     //private string fileName = "HeadsetPose5(637547049989923940).csv";
-    //private string fileName = "HeadsetPose1(637551324366594689).csv";
+    private string fileName = "stairs3.csv";
     //private string fileName = "run1.csv";
     //private string fileName = "stairs2.csv";
     //private string fileName = "run3.csv";
@@ -20,7 +20,8 @@ public class PlayerV2 : MonoBehaviour
     //private string fileName = "SamRunTest1.csv";
     //private string fileName = "TiaanSquat1.csv";
     //private string fileName = "TiaanStill1.csv";
-    private string fileName = "SamSpin1.csv";
+    //private string fileName = "SamSpin1.csv";
+
     public List<float[]> dataArrays = new List<float[]>();
     public GameObject lineObj;
     public GameObject parent;
