@@ -12,10 +12,10 @@ public class PlayerV2 : MonoBehaviour
     //private string fileName = "walk4.csv";
     //private string fileName = "walk5.csv";
     //private string fileName = "stairs1.csv";
-    //private string fileName = "stairs2.csv";
-    private string fileName = "stairs3.csv";
+    //private string fileName = "stairs2.csv"; //questionable recording
+    //private string fileName = "stairs3.csv";
     //private string fileName = "run1.csv";
-    //private string fileName = "SamRunTest1.csv";
+    private string fileName = "SamRunTest1.csv";
     //private string fileName = "run3.csv";
     //private string fileName = "TiaanSquat1.csv";
     //private string fileName = "TiaanStill1.csv";

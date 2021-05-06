@@ -25,6 +25,9 @@ public class MoveThreshCheck : MonoBehaviour
     private bool squatDown;
     public int squatCount = 0;
 
+    private string moveString;
+
+    private int moveCount = 0;
     public string findMovement(List<Pose> poses, int poseCount)
     {
         xPos = 0.0f;
@@ -65,7 +68,9 @@ public class MoveThreshCheck : MonoBehaviour
                     spinCount+=1;
                     if(spinCount > 10){ //make sure that it has been within those values for 10 checks (about 1 second).
                         squatCount = 0; 
-                        return "Spinning Clockwise";
+                        moveString = "Spinning Clockwise";
+                        moveCount = 0;
+                        return moveString;
                     }
                 }else{
                     spinLeft = true;
@@ -76,34 +81,46 @@ public class MoveThreshCheck : MonoBehaviour
                     spinCount+=1;
                     if(spinCount > 10){ //make sure that it has been within those values for 10 checks (about 1 second).
                         squatCount = 0; 
-                        return "Spinning AntiClockWise";
+                        moveString = "Spinning AntiClockWise";
+                        moveCount = 0;
+                        return moveString;
                     }
                 }else{
                     spinLeft = false;
                     spinCount=0;
                 }
             }
-            return "Standing Still";
-
-        }
-        else if(zPos >= 0.03 && yPos > 0.025){ //threshold for going up stairs
-            squatCount = 0; 
-            return "Going Up Stairs";
-        }else if(zPos >= 0.03 && yPos < -0.025){ //threshold for going down stairs
-            squatCount = 0; 
-            return "Going Down Stairs";
-        }
-        else if (zPos >= 0.05 && zPos < 0.23) //threshold for walking
-        {
-            squatCount = 0;  
-            return "Walking";   
+            if(moveCount<5){
+                moveCount+=1;
+                return moveString;
+            }else{
+                moveString = "Standing Still";
+                moveCount = 0;
+                return moveString;  
+            }  
         }
         else if (zPos >= 0.23) //any forward movement faster than walking.
         {
             squatCount = 0;
-            return "Jogging";
-
-        }else if (yPos > 0 && zPos < 0 || yPos < 0 && zPos > 0) //if y and z positional movements are opposites and none of the other criteria have been met.
+            moveString = "Jogging";
+            moveCount = 0;
+            return moveString;
+        }
+        //Running and stairs seem to mess up
+        // else if(zPos >= 0.03 && yPos > 0.023){ //threshold for going up stairs
+        //     squatCount = 0; 
+        //     return "Going Up Stairs";
+        // }else if(zPos >= 0.03 && yPos < -0.023){ //threshold for going down stairs
+        //     squatCount = 0; 
+        //     return "Going Down Stairs";
+        // }
+        else if (zPos >= 0.05 && zPos < 0.23) //threshold for walking
+        {
+            squatCount = 0;   
+            moveString = "Walking";
+            return moveString; 
+        }
+        else if (yPos > 0 && zPos < 0 || yPos < 0 && zPos > 0) //if y and z positional movements are opposites and none of the other criteria have been met.
         {
             if (yPos < 0){
                 if (squatDown == false){
@@ -113,11 +130,21 @@ public class MoveThreshCheck : MonoBehaviour
             }else{
                 squatDown = false;
             }
-            return "Squats: " + squatCount;
+            moveString = "Squats: " + squatCount;
+            moveCount = 0;
+            return moveString;
         }
         else
-        {           
-            return "Unknown activity";
+        {   
+            if(moveCount<10){
+                moveCount+=1;
+                return moveString;
+            }else{
+                moveString = "Unknown Activity";
+                moveCount = 0;
+                return moveString;  
+            }  
+                
             
         }
     }
