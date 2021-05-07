@@ -4,17 +4,13 @@ using UnityEngine;
 
 public class MoveThreshCheck : MonoBehaviour
 {
-    //private float standStill = 0.005f;
-    //private float walking = 0.03f;
-    //private float jogging = 0.3f;
-    
     public float xPos;
     public float yPos;
     public float zPos;
     private Vector3 angle;
-    public float xRot;
-    public float yRot;
-    public float zRot;
+    //public float xRot;
+    //public float yRot;
+    //public float zRot;
     
     private string allThreshValues;
 
@@ -33,37 +29,37 @@ public class MoveThreshCheck : MonoBehaviour
         xPos = 0.0f;
         yPos = 0.0f;
         zPos = 0.0f;
-        xRot = 0.0f;
-        yRot = 0.0f;
-        zRot = 0.0f;
+        //xRot = 0.0f;
+        //yRot = 0.0f;
+        //zRot = 0.0f;
         for (int j = 0; j <= poseCount - 1; j++)
         {
             xPos += poses[j].position.x;
             yPos += poses[j].position.y;
             zPos += poses[j].position.z;
             angle = poses[j].rotation.eulerAngles;
-            xRot += angle.x;
-            yRot += angle.y;
-            zRot += angle.z;
+            //xRot += angle.x;
+            //yRot += angle.y;
+            //zRot += angle.z;
 
         }
 
         xPos = (xPos / poseCount);
         yPos = (yPos / poseCount);
         zPos = (zPos / poseCount);
-        xRot = (xRot / poseCount);
-        yRot = (yRot / poseCount);
-        zRot = (zRot / poseCount);
+        //xRot = (xRot / poseCount);
+        //yRot = (yRot / poseCount);
+        //zRot = (zRot / poseCount);
 
-        allThreshValues += (xPos + "," + yPos + "," + zPos + "," + xRot + "," + yRot + "," + zRot + "\n");
-        if(this.gameObject.GetComponent<RecordData>() != null){
-            this.gameObject.GetComponent<RecordData>().WriteData("ThreshValues.csv" , allThreshValues);
-        }
+        //allThreshValues += (xPos + "," + yPos + "," + zPos + "," + xRot + "," + yRot + "," + zRot + "\n");
+        //if(this.gameObject.GetComponent<RecordData>() != null){
+            //this.gameObject.GetComponent<RecordData>().WriteData("ThreshValues.csv" , allThreshValues);
+        //}
         
 
         if (zPos <= 0.05 && zPos >=-0.05 && yPos <= 0.003 && yPos >=-0.003) //not moving forward, back, up or down
         {
-            if(yRot > 0 && yRot < 40){ //rotation threshold for clockwise
+            /*if(yRot > 0 && yRot < 40){ //rotation threshold for clockwise
                 if(spinLeft){
                     spinCount+=1;
                     if(spinCount > 10){ //make sure that it has been within those values for 10 checks (about 1 second).
@@ -89,7 +85,7 @@ public class MoveThreshCheck : MonoBehaviour
                     spinLeft = false;
                     spinCount=0;
                 }
-            }
+            }*/
             if(moveCount<5){
                 moveCount+=1;
                 return moveString;
@@ -97,7 +93,7 @@ public class MoveThreshCheck : MonoBehaviour
                 moveString = "Standing Still";
                 moveCount = 0;
                 return moveString;  
-            }  
+            }
         }
         else if (zPos >= 0.2) //any forward movement faster than walking.
         {
