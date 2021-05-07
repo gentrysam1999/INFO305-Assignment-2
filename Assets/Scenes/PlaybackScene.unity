@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -279,7 +279,7 @@ MonoBehaviour:
   lineObj: {fileID: 1726506905}
   parent: {fileID: 639684274}
   marker: {fileID: 91143823427409167, guid: 8dfd73be0c0c24aef976b3daf7d00d77, type: 3}
-  instatiateTimeToAdd: 0.1
+  instatiateTimeToAdd: 1
   timeStepDuration: 0.1
   poseCount: 30
   poseCurrentCount: 1
@@ -359,9 +359,6 @@ MonoBehaviour:
   xPos: 0
   yPos: 0
   zPos: 0
-  xRot: 0
-  yRot: 0
-  zRot: 0
   squatCount: 0
 --- !u!114 &639684279
 MonoBehaviour:

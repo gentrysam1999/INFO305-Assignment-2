@@ -32,12 +32,32 @@ public class HoloDisplayMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //            currentPose = new Pose(this.gameObject.transform.position, this.gameObject.transform.rotation);
+
+        //DO SANITY CHECK (totalDisp < 2)
+
+        //SANITE CHECK SUCCESS
+            //IS timer+deltaTime > timeStepDuration
+            //NO
+            //compute relative, add accumulatePose+=relative (do not forget to accumulate angles as EULER and account for negative angles being returned as >180)
+            //set timer +=deltaTime
+            //YES
+            //interPose = interpolatePose(prevPose, currentPose, 0, deltaTime, timeStepDuration-timer)
+            // accumulatePose+=relative (prevPose, interPose) (do not forget to accumulate angles as EULER and account for negative angles being returned as >180)
+            //add to accumulatePose; MoveCalc(accumulatePose, poseCount)
+            //accumulatePose = relative(interPose, currentPose)
+            //timer = timer+deltaTime - timeStepDuration
+
+        //prevPose = currentPose
+
+
         if (timer > timeStepDuration){
             timer+=Time.deltaTime;
             endTime = timer;
             timeLeft = timer % timeStepDuration;
             currentPose = new Pose(this.gameObject.transform.position, this.gameObject.transform.rotation);
             Pose tempPose = this.gameObject.GetComponent<BasicInterpolation>().InterpolatePose(prevPose, currentPose, startTime, endTime, timeLeft);
+            
             currentPose = tempPose;
 
             Pose poseDisp = this.gameObject.GetComponent<RelativePose>().ComputeRelativePose(prevPose, currentPose);
