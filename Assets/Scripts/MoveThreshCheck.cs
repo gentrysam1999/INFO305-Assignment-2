@@ -8,9 +8,9 @@ public class MoveThreshCheck : MonoBehaviour
     public float yPos;
     public float zPos;
     private Vector3 angle;
-    //public float xRot;
-    //public float yRot;
-    //public float zRot;
+    public float xRot;
+    public float yRot;
+    public float zRot;
     
     private string allThreshValues;
 
@@ -29,27 +29,38 @@ public class MoveThreshCheck : MonoBehaviour
         xPos = 0.0f;
         yPos = 0.0f;
         zPos = 0.0f;
-        //xRot = 0.0f;
-        //yRot = 0.0f;
-        //zRot = 0.0f;
+        xRot = 0.0f;
+        yRot = 0.0f;
+        zRot = 0.0f;
         for (int j = 0; j <= poseCount - 1; j++)
         {
             xPos += poses[j].position.x;
             yPos += poses[j].position.y;
             zPos += poses[j].position.z;
             angle = poses[j].rotation.eulerAngles;
-            //xRot += angle.x;
-            //yRot += angle.y;
-            //zRot += angle.z;
-
+            if(angle.x > 180){
+                xRot += angle.x - 360;
+            }else{
+                xRot += angle.x;
+            }
+            if(angle.y > 180){
+                yRot += angle.y - 360;
+            }else{
+                yRot += angle.y;
+            }
+            if(angle.z > 180){
+                zRot += angle.z - 360;
+            }else{
+                zRot += angle.z;
+            }
         }
 
         xPos = (xPos / poseCount);
         yPos = (yPos / poseCount);
         zPos = (zPos / poseCount);
-        //xRot = (xRot / poseCount);
-        //yRot = (yRot / poseCount);
-        //zRot = (zRot / poseCount);
+        xRot = (xRot / poseCount);
+        yRot = (yRot / poseCount);
+        zRot = (zRot / poseCount);
 
         //allThreshValues += (xPos + "," + yPos + "," + zPos + "," + xRot + "," + yRot + "," + zRot + "\n");
         //if(this.gameObject.GetComponent<RecordData>() != null){

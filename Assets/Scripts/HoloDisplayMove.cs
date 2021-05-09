@@ -14,6 +14,15 @@ public class HoloDisplayMove : MonoBehaviour
     private Pose[] setUp;
     private Pose currentPose;
     private Pose prevPose;
+    private Pose accumPose;
+
+    private float xPos = 0.0f;
+    private float yPos = 0.0f;
+    private float zPos = 0.0f;
+    private Vector3 angle;
+    private float xRot = 0.0f;
+    private float yRot = 0.0f;
+    private float zRot = 0.0f;
 
     public string movement;
 
@@ -27,6 +36,7 @@ public class HoloDisplayMove : MonoBehaviour
         dispValues = new List<Pose>[poseCount];
         prevPose = new Pose(this.gameObject.transform.position, this.gameObject.transform.rotation);
         startTime = timer;
+        
     }
 
     // Update is called once per frame
@@ -49,28 +59,112 @@ public class HoloDisplayMove : MonoBehaviour
             //timer = timer+deltaTime - timeStepDuration
 
         //prevPose = currentPose
-
-
-        if (timer > timeStepDuration){
-            timer+=Time.deltaTime;
-            endTime = timer;
-            timeLeft = timer % timeStepDuration;
-            currentPose = new Pose(this.gameObject.transform.position, this.gameObject.transform.rotation);
-            Pose tempPose = this.gameObject.GetComponent<BasicInterpolation>().InterpolatePose(prevPose, currentPose, startTime, endTime, timeLeft);
-            
-            currentPose = tempPose;
-
-            Pose poseDisp = this.gameObject.GetComponent<RelativePose>().ComputeRelativePose(prevPose, currentPose);
-            float totalDisp = Mathf.Sqrt((poseDisp.position.x*poseDisp.position.x) + (poseDisp.position.y*poseDisp.position.y) + (poseDisp.position.z*poseDisp.position.z));
-            if (!(totalDisp > 2)){
-                this.MoveCalc(poseDisp, poseCount);
+        currentPose = new Pose(this.gameObject.transform.position, this.gameObject.transform.rotation);
+        Pose poseDisp = this.gameObject.GetComponent<RelativePose>().ComputeRelativePose(prevPose, currentPose);
+        float totalDisp = Mathf.Sqrt((poseDisp.position.x*poseDisp.position.x) + (poseDisp.position.y*poseDisp.position.y) + (poseDisp.position.z*poseDisp.position.z));
+        if (!(totalDisp > 2)){
+            if (timer+Time.deltaTime < timeStepDuration){
+                xPos+= poseDisp.position.x;
+                yPos+= poseDisp.position.y;
+                zPos+= poseDisp.position.z;
+                angle = poseDisp.rotation.eulerAngles;
+                if(angle.x > 180){
+                    xRot += angle.x - 360;
+                }else{
+                    xRot += angle.x;
+                }
+                if(angle.y > 180){
+                    yRot += angle.y - 360;
+                }else{
+                    yRot += angle.y;
+                }
+                if(angle.z > 180){
+                    zRot += angle.z - 360;
+                }else{
+                    zRot += angle.z;
+                }
+                Vector3 accumPos = new Vector3(xPos, yPos, zPos);
+                Quaternion accumRot = Quaternion.Euler(xRot, yRot, zRot);
+                accumPose  = new Pose(accumPos, accumRot);
+                timer += Time.deltaTime;
             }
-            timer = 0;
-        }else{
-            timer+=Time.deltaTime;
+            else{
+                Pose interPose = this.gameObject.GetComponent<BasicInterpolation>().InterpolatePose(prevPose, currentPose, 0, Time.deltaTime, timeStepDuration-timer);
+                Pose poseDispFin = this.gameObject.GetComponent<RelativePose>().ComputeRelativePose(prevPose, interPose);
+                
+                xPos+= poseDispFin.position.x;
+                yPos+= poseDispFin.position.y;
+                zPos+= poseDispFin.position.z;
+                angle = poseDispFin.rotation.eulerAngles;
+                if(angle.x > 180){
+                    xRot += angle.x - 360;
+                }else{
+                    xRot += angle.x;
+                }
+                if(angle.y > 180){
+                    yRot += angle.y - 360;
+                }else{
+                    yRot += angle.y;
+                }
+                if(angle.z > 180){
+                    zRot += angle.z - 360;
+                }else{
+                    zRot += angle.z;
+                }
+                Vector3 accumPos = new Vector3(xPos, yPos, zPos);
+                Quaternion accumRot = Quaternion.Euler(xRot, yRot, zRot);
+                accumPose  = new Pose(accumPos, accumRot);
+                MoveCalc(accumPose, poseCount);
+                accumPose = this.gameObject.GetComponent<RelativePose>().ComputeRelativePose(interPose, currentPose);
+                xPos= accumPose.position.x;
+                yPos= accumPose.position.y;
+                zPos= accumPose.position.z;
+                angle= accumPose.rotation.eulerAngles;
+                if(angle.x > 180){
+                    xRot = angle.x - 360;
+                }else{
+                    xRot = angle.x;
+                }
+                if(angle.y > 180){
+                    yRot = angle.y - 360;
+                }else{
+                    yRot = angle.y;
+                }
+                if(angle.z > 180){
+                    zRot = angle.z - 360;
+                }else{
+                    zRot = angle.z;
+                }
+                timer = timer+Time.deltaTime - timeStepDuration;
+            }
         }
-        prevPose = currentPose; 
+        prevPose = currentPose;
     }
+
+
+
+
+
+    //     if (timer > timeStepDuration){
+    //         timer+=Time.deltaTime;
+    //         endTime = timer;
+    //         timeLeft = timer % timeStepDuration;
+    //         currentPose = new Pose(this.gameObject.transform.position, this.gameObject.transform.rotation);
+    //         Pose tempPose = this.gameObject.GetComponent<BasicInterpolation>().InterpolatePose(prevPose, currentPose, startTime, endTime, timeLeft);
+            
+    //         currentPose = tempPose;
+
+    //         Pose poseDisp = this.gameObject.GetComponent<RelativePose>().ComputeRelativePose(prevPose, currentPose);
+    //         float totalDisp = Mathf.Sqrt((poseDisp.position.x*poseDisp.position.x) + (poseDisp.position.y*poseDisp.position.y) + (poseDisp.position.z*poseDisp.position.z));
+    //         if (!(totalDisp > 2)){
+    //             this.MoveCalc(poseDisp, poseCount);
+    //         }
+    //         timer = 0;
+    //     }else{
+    //         timer+=Time.deltaTime;
+    //     }
+    //     prevPose = currentPose; 
+    // }
 
     public void MoveCalc(Pose poseDisp, int poseCount)
 
