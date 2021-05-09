@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class MoveThreshCheck : MonoBehaviour
 {
+    public GameObject dispValTxtObj;
+    public GameObject histRend;
     public float xPos;
     public float yPos;
     public float zPos;
@@ -61,6 +64,13 @@ public class MoveThreshCheck : MonoBehaviour
         xRot = (xRot / poseCount);
         yRot = (yRot / poseCount);
         zRot = (zRot / poseCount);
+        string dispVals = ("xPos: "+xPos + "\nyPos: " + yPos + "\nzPos: " + zPos + "\nxRot: " + xRot + "\nyRot: " + yRot + "\nzRot: " + zRot);
+        if(histRend!=null){
+            histRend.GetComponent<HistRenderer>().RendHistFrame(xPos, yPos, zPos, xRot, yRot, zRot);
+        }
+        if(dispValTxtObj!=null){
+            dispValTxtObj.GetComponent<TMP_Text>().text = dispVals;
+        }
 
         //allThreshValues += (xPos + "," + yPos + "," + zPos + "," + xRot + "," + yRot + "," + zRot + "\n");
         //if(this.gameObject.GetComponent<RecordData>() != null){

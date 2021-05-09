@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class HoloDisplayMove : MonoBehaviour
 {
     public GameObject textObj;
+    public GameObject textTimeObj;
     private float timer = 0.0f;
     private float timeLeft;
     public float timeStepDuration;
@@ -59,6 +61,10 @@ public class HoloDisplayMove : MonoBehaviour
             //timer = timer+deltaTime - timeStepDuration
 
         //prevPose = currentPose
+        if(textTimeObj!=null){
+            textTimeObj.GetComponent<TMP_Text>().text = timeStepDuration.ToString("0.00");
+        }
+        
         currentPose = new Pose(this.gameObject.transform.position, this.gameObject.transform.rotation);
         Pose poseDisp = this.gameObject.GetComponent<RelativePose>().ComputeRelativePose(prevPose, currentPose);
         float totalDisp = Mathf.Sqrt((poseDisp.position.x*poseDisp.position.x) + (poseDisp.position.y*poseDisp.position.y) + (poseDisp.position.z*poseDisp.position.z));
@@ -214,5 +220,22 @@ public class HoloDisplayMove : MonoBehaviour
             }
         }
     //Debug.Log(currentPose +  "," + previousPose + "," + poseCount + "," + timeLeft);
+    }
+
+    public void IncreaseTimeStep(){
+        timeStepDuration += 0.1f;
+    }
+    public void DecreaseTimeStep(){
+        if(timeStepDuration>0.1f){
+            timeStepDuration-=0.1f;
+        }
+    }
+    public void IncreasePoseCount(){
+        poseCount += 5;
+    }
+    public void DecreasePoseCount(){
+        if(poseCount>5){
+            poseCount -= 5;
+        }
     }
 }

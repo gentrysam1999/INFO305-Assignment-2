@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8403709856212003706}
   - component: {fileID: 8239000805890987272}
   - component: {fileID: 4040320123429542205}
+  - component: {fileID: 4110991759005943167}
   m_Layer: 0
   m_Name: HistBlock
   m_TagString: Untagged
@@ -93,3 +94,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4110991759005943167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6974199946262937289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b7eb18de03c14a8ca57dfa9f94b0a02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
