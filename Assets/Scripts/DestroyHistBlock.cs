@@ -24,7 +24,7 @@ public class DestroyHistBlock : MonoBehaviour
         }else{
             count = 0;
         }
-        if(count>30){
+        if(count>100){
             Destroy(gameObject);
         }else{
             prevSize = size;

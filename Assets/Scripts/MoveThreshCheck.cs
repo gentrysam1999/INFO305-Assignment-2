@@ -72,10 +72,10 @@ public class MoveThreshCheck : MonoBehaviour
             dispValTxtObj.GetComponent<TMP_Text>().text = dispVals;
         }
 
-        //allThreshValues += (xPos + "," + yPos + "," + zPos + "," + xRot + "," + yRot + "," + zRot + "\n");
-        //if(this.gameObject.GetComponent<RecordData>() != null){
-            //this.gameObject.GetComponent<RecordData>().WriteData("ThreshValues.csv" , allThreshValues);
-        //}
+        allThreshValues += (xPos + "," + yPos + "," + zPos + "," + xRot + "," + yRot + "," + zRot + "\n");
+        if(this.gameObject.GetComponent<RecordData>() != null){
+            this.gameObject.GetComponent<RecordData>().WriteData("ThreshValues.csv" , allThreshValues);
+        }
         
 
         if (zPos <= 0.05 && zPos >=-0.05 && yPos <= 0.003 && yPos >=-0.003) //not moving forward, back, up or down

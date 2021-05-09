@@ -3792,7 +3792,7 @@ MonoBehaviour:
   axisName: 
   blockPref: {fileID: 6974199946262937289, guid: e63fede729c7a42e1b3f52cc5eb92ec5,
     type: 3}
-  size: 10
+  size: 50
   axis: 0
   histValues: []
   prevValues: []
