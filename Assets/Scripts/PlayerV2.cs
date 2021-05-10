@@ -6,24 +6,35 @@ using UnityEngine;
 
 public class PlayerV2 : MonoBehaviour
 {
+    //walking files
     //private string fileName = "walk1.csv";
     //private string fileName = "walk2.csv";
     //private string fileName = "walk3.csv";
     //private string fileName = "walk4.csv";
     //private string fileName = "walk5.csv";
-    //private string fileName = "stairs1.csv";
-    //private string fileName = "stairs2.csv"; //questionable recording
-    private string fileName = "stairs3.csv";
-   //private string fileName = "run1.csv";
-    //private string fileName = "SamRunTest1.csv";
+
+    //running files
+    //private string fileName = "run1.csv";
+    private string fileName = "SamRunTest1.csv";
     //private string fileName = "run3.csv";
+
+    //squatting files
     //private string fileName = "TiaanSquat1.csv";
     //private string fileName = "KarlSquat1.csv";
     //private string fileName = "SamSquat1.csv";
+
+    //other files
     //private string fileName = "TiaanStill1.csv";
+    //private string fileName = "MixedData.csv";
+
+
+    //old unused files
+    //private string fileName = "stairs1.csv";
+    //private string fileName = "stairs2.csv"; //questionable recording
+    //private string fileName = "stairs3.csv";
     //private string fileName = "SamSpin1.csv";
     //private string fileName = "elevator1.csv";
-    //private string fileName = "MixedData.csv";
+    
 
 
 
@@ -39,12 +50,12 @@ public class PlayerV2 : MonoBehaviour
     public float instatiateTimeToAdd = 5.0f;
     private int playbackCount = 1;
 
-    private float timeLeft;
+    //private float timeLeft;
 
-    public float timeStepDuration;
+    //public float timeStepDuration;
 
-    public int poseCount;
-    public int poseCurrentCount = 1;
+    //public int poseCount;
+    //public int poseCurrentCount = 1;
 
     private List<float>[] dispValues;
    //private List<float[]> dispValues = new List<float[]>();
@@ -61,8 +72,8 @@ public class PlayerV2 : MonoBehaviour
     void Start()
     {
         this.ReadValues();
-        dispValues = new List<float>[poseCount];
-        setUp = new float[poseCount];
+        //dispValues = new List<float>[poseCount];
+        //setUp = new float[poseCount];
     }
 
     // Update is called once per frame
@@ -83,13 +94,13 @@ public class PlayerV2 : MonoBehaviour
             float totalDisp = Mathf.Sqrt((poseDisp.position.x*poseDisp.position.x) + (poseDisp.position.y*poseDisp.position.y) + (poseDisp.position.z*poseDisp.position.z));
             //Debug.Log(totalDisp);
 
-            timeLeft = timer % timeStepDuration;
+            //timeLeft = timer % timeStepDuration;
             //Debug.Log(timeLeft);
            
 
             //only run when displacement isn't bigger than 2
             if (!(totalDisp > 2)){
-                //set the local position of the gameObject (relative to parent) to the poseDisp(relative pose)
+                //set the local position of the gameObject (relative to mover) to the poseDisp(relative pose)
                 this.gameObject.transform.localPosition = poseDisp.position;
                 this.gameObject.transform.localRotation = poseDisp.rotation;
                 //create a tempPose of the gameObject's world position

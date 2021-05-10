@@ -1219,8 +1219,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textObj: {fileID: 1619320608}
   textTimeObj: {fileID: 1405581483}
-  timeStepDuration: 0.01
-  poseCount: 10
+  timeStepDuration: 0.025
+  poseCount: 25
   poseCurrentCount: 1
   movement: 
 --- !u!114 &639684280
@@ -3792,8 +3792,8 @@ MonoBehaviour:
   axisName: 
   blockPref: {fileID: 6974199946262937289, guid: e63fede729c7a42e1b3f52cc5eb92ec5,
     type: 3}
-  size: 50
-  axis: 0
+  size: 500
+  axis: 2
   histValues: []
   prevValues: []
 --- !u!1 &2085513127
