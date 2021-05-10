@@ -16,6 +16,10 @@ public class MoveThreshCheck : MonoBehaviour
     public float zRot;
     
     private string allThreshValues;
+    
+
+    private string walkCheck, stillCheck, runCheck, squatCheck;
+    private string threshTruthCheck;
 
     private int spinCount;
 
@@ -27,6 +31,8 @@ public class MoveThreshCheck : MonoBehaviour
     private string moveString;
 
     private int moveCount = 0;
+
+    
     public string findMovement(List<Pose> poses, int poseCount)
     {
         xPos = 0.0f;
@@ -75,10 +81,16 @@ public class MoveThreshCheck : MonoBehaviour
         allThreshValues += (xPos + "," + yPos + "," + zPos + "," + xRot + "," + yRot + "," + zRot + "\n");
         if(this.gameObject.GetComponent<RecordData>() != null){
             this.gameObject.GetComponent<RecordData>().WriteData("ThreshValues.csv" , allThreshValues);
+            this.gameObject.GetComponent<RecordData>().WriteData("ThreshTruthCheck.csv" , threshTruthCheck);
+            this.gameObject.GetComponent<RecordData>().WriteData("StillCheck.csv" , stillCheck);
+            this.gameObject.GetComponent<RecordData>().WriteData("WalkCheck.csv" , walkCheck);
+            this.gameObject.GetComponent<RecordData>().WriteData("RunCheck.csv" , runCheck);
+            this.gameObject.GetComponent<RecordData>().WriteData("SquatCheck.csv" , squatCheck);
+
         }
         
 
-        if (zPos <= 0.05 && zPos >=-0.05 && yPos <= 0.003 && yPos >=-0.003) //not moving forward, back, up or down
+        if (zPos <= 0.0008 && zPos >=-0.0008 && yPos <= 0.0006 && yPos >=-0.0006) //not moving forward, back, up or down
         {
             /*if(yRot > 0 && yRot < 40){ //rotation threshold for clockwise
                 if(spinLeft){
@@ -112,14 +124,16 @@ public class MoveThreshCheck : MonoBehaviour
                 return moveString;
             }else{
                 moveString = "Standing Still";
+                threshTruthCheck +=("1, 0, 0, 0\n");
                 moveCount = 0;
                 return moveString;  
             }
         }
-        else if (zPos >= 0.15) //any forward movement faster than walking.
+        else if (zPos >= 0.08) //any forward movement faster than walking.
         {
             squatCount = 0;
             moveString = "Jogging";
+            threshTruthCheck +=("0, 0, 1, 0\n");
             moveCount = 0;
             return moveString;
         }
@@ -131,10 +145,11 @@ public class MoveThreshCheck : MonoBehaviour
         //     squatCount = 0; 
         //     return "Going Down Stairs";
         // }
-        else if (zPos >= 0.05 && zPos < 0.15) //threshold for walking
+        else if (zPos >= 0.0008 && zPos < 0.08) //threshold for walking
         {
             squatCount = 0;   
             moveString = "Walking";
+            threshTruthCheck +=("0, 1, 0, 0\n");
             return moveString; 
         }
         else if (yPos > 0 && zPos < 0 || yPos < 0 && zPos > 0) //if y and z positional movements are opposites and none of the other criteria have been met.
@@ -148,6 +163,7 @@ public class MoveThreshCheck : MonoBehaviour
                 squatDown = false;
             }
             moveString = "Squats: " + squatCount;
+            threshTruthCheck +=("0, 0, 0, 1\n");
             moveCount = 0;
             return moveString;
         }
@@ -158,6 +174,11 @@ public class MoveThreshCheck : MonoBehaviour
                 return moveString;
             }else{
                 moveString = "Unknown Activity";
+                threshTruthCheck +=("0, 0, 0, 0\n");
+                stillCheck += "0\n";
+                walkCheck += "0\n";
+                runCheck += "0\n";
+                squatCheck += "0\n";
                 moveCount = 0;
                 return moveString;  
             }  

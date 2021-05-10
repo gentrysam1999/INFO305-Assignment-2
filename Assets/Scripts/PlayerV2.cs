@@ -15,7 +15,7 @@ public class PlayerV2 : MonoBehaviour
 
     //running files
     //private string fileName = "run1.csv";
-    private string fileName = "SamRunTest1.csv";
+    //private string fileName = "SamRunTest1.csv";
     //private string fileName = "run3.csv";
 
     //squatting files
@@ -24,7 +24,7 @@ public class PlayerV2 : MonoBehaviour
     //private string fileName = "SamSquat1.csv";
 
     //other files
-    //private string fileName = "TiaanStill1.csv";
+    private string fileName = "TiaanStill1.csv";
     //private string fileName = "MixedData.csv";
 
 
