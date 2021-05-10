@@ -16,9 +16,6 @@ public class MoveThreshCheck : MonoBehaviour
     public float zRot;
     
     private string allThreshValues;
-    
-
-    private string walkCheck, stillCheck, runCheck, squatCheck;
     private string threshTruthCheck;
 
     private int spinCount;
@@ -82,15 +79,10 @@ public class MoveThreshCheck : MonoBehaviour
         if(this.gameObject.GetComponent<RecordData>() != null){
             this.gameObject.GetComponent<RecordData>().WriteData("ThreshValues.csv" , allThreshValues);
             this.gameObject.GetComponent<RecordData>().WriteData("ThreshTruthCheck.csv" , threshTruthCheck);
-            this.gameObject.GetComponent<RecordData>().WriteData("StillCheck.csv" , stillCheck);
-            this.gameObject.GetComponent<RecordData>().WriteData("WalkCheck.csv" , walkCheck);
-            this.gameObject.GetComponent<RecordData>().WriteData("RunCheck.csv" , runCheck);
-            this.gameObject.GetComponent<RecordData>().WriteData("SquatCheck.csv" , squatCheck);
-
         }
         
 
-        if (zPos <= 0.0008 && zPos >=-0.0008 && yPos <= 0.0006 && yPos >=-0.0006) //not moving forward, back, up or down
+        if (zPos <= 0.02 && zPos >=-0.02 && yPos <= 0.002 && yPos >=-0.002) //not moving forward, back, up or down
         {
             /*if(yRot > 0 && yRot < 40){ //rotation threshold for clockwise
                 if(spinLeft){
@@ -119,7 +111,7 @@ public class MoveThreshCheck : MonoBehaviour
                     spinCount=0;
                 }
             }*/
-            if(moveCount<5){
+            if(moveCount<10){
                 moveCount+=1;
                 return moveString;
             }else{
@@ -145,7 +137,7 @@ public class MoveThreshCheck : MonoBehaviour
         //     squatCount = 0; 
         //     return "Going Down Stairs";
         // }
-        else if (zPos >= 0.0008 && zPos < 0.075) //threshold for walking
+        else if (zPos >= 0.02 && zPos < 0.075) //threshold for walking
         {
             squatCount = 0;   
             moveString = "Walking";
@@ -175,10 +167,6 @@ public class MoveThreshCheck : MonoBehaviour
             }else{
                 moveString = "Unknown Activity";
                 threshTruthCheck +=("0, 0, 0, 0\n");
-                stillCheck += "0\n";
-                walkCheck += "0\n";
-                runCheck += "0\n";
-                squatCheck += "0\n";
                 moveCount = 0;
                 return moveString;  
             }  
