@@ -129,7 +129,7 @@ public class MoveThreshCheck : MonoBehaviour
                 return moveString;  
             }
         }
-        else if (zPos >= 0.08) //any forward movement faster than walking.
+        else if (zPos >= 0.075) //any forward movement faster than walking.
         {
             squatCount = 0;
             moveString = "Jogging";
@@ -145,7 +145,7 @@ public class MoveThreshCheck : MonoBehaviour
         //     squatCount = 0; 
         //     return "Going Down Stairs";
         // }
-        else if (zPos >= 0.0008 && zPos < 0.08) //threshold for walking
+        else if (zPos >= 0.0008 && zPos < 0.075) //threshold for walking
         {
             squatCount = 0;   
             moveString = "Walking";
